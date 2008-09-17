@@ -1,0 +1,16 @@
+db.py:
+	Klasse Book()
+		.info(nr) --> Dict (nr,isbn,meta)
+		.exist(nr) --> bool
+		.create(isbn,meta) --> nr
+		.delete(nr) --> bool
+	Klasse Pupil()
+		.info(nr) --> dict (nr,vor,nach,geb)
+		.exist(nr) --> bool
+		.create([vor,nach,geb]) --> nr
+		.delete(nr) --> bool
+	Klasse Ausleihe()
+		.exist(bnr) --> bool
+		.pupil(pnr) --> list (Book)
+		.create(pnr) --> bool
+		.delete() --> bool
