@@ -15,6 +15,6 @@ db.py:
 		.create(pnr) --> bool
 		.delete() --> bool
 eingabe:
-:) (:
+:) (:as
 barcode.py:
 	Klasse barcode()
