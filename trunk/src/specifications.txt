@@ -17,4 +17,4 @@ db.py:
 eingabe:
 	as
 barcode.py:
-	Klasse barcode
+	Klasse barcode()
