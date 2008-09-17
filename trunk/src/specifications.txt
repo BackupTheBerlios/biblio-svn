@@ -14,3 +14,5 @@ db.py:
 		.pupil(pnr) --> list (Book)
 		.create(pnr) --> bool
 		.delete() --> bool
+eingabe:
+	as
