@@ -5,7 +5,7 @@ class Main():
         self.root=tk.Tk()
         self.root.title("Code")
         self.Buchname="Terra 5/6"
-        self.Code="*100018933*"
+        self.Code="*1000018933*"
         self.Label=tk.Label(self.root, text=self.Code,
                             font=('IDAutomationHC39M',30))
         self.Label.pack()
