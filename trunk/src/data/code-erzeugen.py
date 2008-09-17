@@ -1,5 +1,4 @@
 import Tkinter as tk
-import random as ra
 import simplewinprint as druck
 class Main():
     def __init__(self):
