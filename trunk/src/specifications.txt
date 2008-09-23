@@ -1,20 +1,21 @@
 db.py:
 	Klasse Book()
-		.info(nr) --> Dict (nr,isbn,meta)
+		.create() --> nr
+		.edit(isbn,meta) --> bool
 		.exist(nr) --> bool
-		.create(isbn,meta) --> nr
 		.delete(nr) --> bool
+		.info(nr) --> Dict (nr,lent,isbn,meta)
 	Klasse Pupil()
-		.info(nr) --> dict (nr,vor,nach,geb)
+		.create() --> nr
+		.edit(vorname,nachname,gebdatum) --> bool
 		.exist(nr) --> bool
-		.create([vor,nach,geb]) --> nr
 		.delete(nr) --> bool
+		.info(nr) --> dict (nr,vor,nach,geb)
 	Klasse Ausleihe()
-		.exist(bnr) --> bool
-		.pupil(pnr) --> list (Book)
-		.create(pnr) --> bool
-		.delete() --> bool
-eingabe:
-:) (:as
+		.add(pupil,book) --> bool			##Ausleihe
+		.book_lent(bnr) --> bool			##Ist Buch ausgeliehn?
+		.pupil_got(pnr) --> list(booknr)	##Welche Bücher hat Schüler?
+		.return(bnr) --> bool 				##Rückgabe
+eingabe.py:
+
 barcode.py:
-	Klasse barcode()
