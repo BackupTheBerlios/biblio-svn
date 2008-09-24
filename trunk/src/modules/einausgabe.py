@@ -1,9 +1,11 @@
-import MySQLdb as mysql
-
+import db
+db=Database()
+db.connect()
 class Book():
     def create(self):
+        ("insert into biblio
         return booknr
-    def edit(self,nr,isbn,meta):
+    def edit(self,nr,isbn,author,title):
         return
     def exist(self,booknr):
         return
