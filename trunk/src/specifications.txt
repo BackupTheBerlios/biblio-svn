@@ -16,5 +16,9 @@ einausgabe.py:
 		.book_loaned(bnr) --> list(pnr)			##Ist Buch ausgeliehn?
 		.pupil_got(pnr) --> list(booknr)	##Welche Buecher hat Schueler?
 		.handback(bnr) --> bool 				##Rueckgabe
-
+db.py:
+	Klasse Database():
+		.connect() --> bool
+		.query(sqlcode) --> list
+		.quit() --> bool
 barcode.py:
