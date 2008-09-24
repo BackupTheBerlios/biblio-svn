@@ -1,13 +1,16 @@
-import db
-db=Database()
-db.connect()
+import database
+db=database.Database()
 class Book():
     def create(self):
-        ("insert into biblio
+        db.query('insert into book')
+        booknr=db.query('select MAX (nr)')
         return booknr
     def edit(self,nr,isbn,author,title):
+        if :
+            db.query('update book (nr,isbn,author,title)')
         return
     def exist(self,booknr):
+        db.query()
         return
     def delete(self,booknr):
         return
