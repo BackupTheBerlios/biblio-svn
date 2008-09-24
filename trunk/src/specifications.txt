@@ -14,8 +14,8 @@ db.py:
 	Klasse Ausleihe()
 		.borrow(pupil,book) --> bool			##Ausleihe
 		.book_loaned(bnr) --> list(pnr)			##Ist Buch ausgeliehn?
-		.pupil_got(pnr) --> list(booknr)	##Welche BÃ¼cher hat SchÃ¼ler?
-		.handback(bnr) --> bool 				##RÃ¼ckgabe
-eingabe.py:
-
+		.pupil_got(pnr) --> list(booknr)	##Welche Buecher hat Schueler?
+		.handback(bnr) --> bool 				##Rueckgabe
+Ausleihe/Rückgabe.py:
+	Klasse Rückgabe
 barcode.py:
