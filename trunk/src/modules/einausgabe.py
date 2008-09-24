@@ -13,8 +13,11 @@ class Book():
             suc=False
         return suc
     def exist(self,booknr):
-        db.query()
-        return
+        if db.query('select nr from book where nr='+nr+''):
+            suc=True
+        else:
+            suc=False
+        return suc
     def delete(self,booknr):
         return
     def info(self,booknr):
