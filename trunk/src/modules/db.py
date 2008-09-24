@@ -1,2 +1,0 @@
-import MySQLdb as mysql
-
