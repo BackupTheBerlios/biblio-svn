@@ -6,17 +6,19 @@ class Book():
         booknr=db.query('select MAX (nr)')
         return booknr
     def edit(self,nr,isbn,author,title):
-        if db.query('select nr from book where nr='+nr+''):
-            db.query('update book (nr,isbn,author,title)')
-            suc=True
-        else:
-            suc=False
+        if(db.check("nr",nr) and db.check("isbn",isbn) and db.check("text",author) and db.check("text",title)):
+            if db.query('select nr from book where nr='+nr+''):
+                db.query('update book (nr,isbn,author,title)')
+                suc=True
+                else:
+                    suc=False
         return suc
     def exist(self,booknr):
-        if db.query('select nr from book where nr='+nr+''):
-            suc=True
-        else:
-            suc=False
+        if db.check("nr",booknr):
+            if db.query('select nr from book where nr='+nr+''):
+                suc=True
+                else:
+                    suc=False
         return suc
     def delete(self,booknr):
         return

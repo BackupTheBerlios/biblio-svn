@@ -17,6 +17,17 @@ class Database():
         except:
             raise
         return ret
+    def check(self,type,var):
+        if type=="isbn":
+            return
+        elif type=="text":
+            return
+        elif type=="date":
+            return
+        elif type=="nr":
+            return
+        else:
+            raise
     def __del__(self):
         try:
             con.close()

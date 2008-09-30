@@ -19,4 +19,5 @@ einausgabe.py:
 database.py:
 	Klasse Database():
 		.query(sqlcode) --> list
+		.check(type,var) --> bool ##type= | (isbn,text,date,nr)
 barcode.py:
