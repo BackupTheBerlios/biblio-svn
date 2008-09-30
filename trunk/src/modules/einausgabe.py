@@ -10,14 +10,14 @@ class Book():
             if db.query('select nr from book where nr='+nr+''):
                 db.query('update book (nr,isbn,author,title)')
                 suc=True
-                else:
+            else:
                     suc=False
         return suc
     def exist(self,booknr):
         if db.check("nr",booknr):
             if db.query('select nr from book where nr='+nr+''):
                 suc=True
-                else:
+            else:
                     suc=False
         return suc
     def delete(self,booknr):
