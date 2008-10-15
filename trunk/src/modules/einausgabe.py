@@ -5,6 +5,11 @@ class Book():
         db.query('insert into book')
         booknr=db.query('select MAX (nr)')
         return booknr
+    def create_typ (self,isbn,author,title):
+        if (db.check ("isbn",isbn) and db.check("text",author) and db.check("text",title)):
+            suc=False
+        else:
+            db.query ('create isbn')
     def edit(self,nr,isbn,author,title):
         if(db.check("nr",nr) and db.check("isbn",isbn) and db.check("text",author) and db.check("text",title)):
             if db.query('select nr from book where nr='+nr+''):
@@ -21,6 +26,12 @@ class Book():
                     suc=False
         return suc
     def delete(self,booknr):
+        if db.check("nr",booknr):
+            if db.query ('select nr from book where nr='+nr+''):
+                db.query ('delete booknr (nr)')
+                suc=True
+            else:
+                    suc=False
         return
     def info(self,booknr):
         ##info_dict=nr,isbn,meta
