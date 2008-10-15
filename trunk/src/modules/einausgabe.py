@@ -5,16 +5,16 @@ class Book():
         db.query('insert into book')
         booknr=db.query('select MAX (nr)')
         return booknr
-    def create_typ (self,isbn,author,title):
+    def create_type (self,isbn,author,title):
         if (db.check ("isbn",isbn) and db.check("text",author) and db.check("text",title)):
             suc=False
         else:
-            db.query ('create isbn')
+            db.query ('insert into type')
     def edit(self,nr,isbn,author,title):
         if(db.check("nr",nr) and db.check("isbn",isbn) and db.check("text",author) and db.check("text",title)):
             if db.query('select nr from book where nr='+nr+''):
-                db.query('update book (nr,isbn,author,title)')
-                suc=True
+                if db.query('update book (nr='+nr+',isbn='+isbn+',author='+author+',title='+title+')'):
+                    suc=True
             else:
                     suc=False
         return suc
