@@ -39,11 +39,15 @@ class Book():
         return
     
     def info(self,booknr):
-        info_dict={'select booknr, nr, isbn, author,title from type as t, from book as b where t.booknr=b.booknr' }
+        info_dict={'select booknr, nr, isbn, author, title from type as t, from book as b where t.booknr=b.booknr' }
         if db.query('select nr from book where nr='+nr''):
+            suc=True
+            
+        else:
+            suc=False
             
         
-        ##info_dict=nr,isbn,meta
+    
         return (info_dict)
     
 class Pupil():
