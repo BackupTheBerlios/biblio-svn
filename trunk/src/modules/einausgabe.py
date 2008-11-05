@@ -52,9 +52,19 @@ class Book():
     
 class Pupil():
     def create(self):
+        db.query('insert into pupil')
+        booknr=db.query('select MAX (nr)')
         return pupilnr
+    
     def edit(self,nr,vorname,nachname,geburtsdatum):
-        return
+        if(db.check("nr",nr) and db.check("text",vorname) and db.check("text",nachname) and db.check("text",geburtsdatum)):
+            if db.query('select nr from book where nr='+nr+''):
+                if db.query('update pupil (nr='+nr+',vorname='+vorname+',nachname='+nachname+',gebursdatum='+gebursdatum+')'):
+                    suc=True
+            else:
+                    suc=False
+        return suc
+
     def exist(self,pupilnr):
         return
     def delete(self,pupilnr):
