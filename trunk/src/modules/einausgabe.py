@@ -49,7 +49,7 @@ class Book():
 
 
         return (info_dict)
-
+        
 class Pupil():
     def create(self):
         db.query('insert into pupil')
@@ -90,11 +90,11 @@ class Pupil():
 class Ausleihe():
     def borrow(self,pupilnr,booknr):
         return
-    def book_loaned(self,booknr):
+    def book_loaned(self,booknr): # welcher schüler ein buch mit booknr asugeliehen ist
         return (pupilnr)
-    def pupil_got(self,pupilnr):
+    def pupil_got(self,pupilnr): # ob der schüler book hat, wenn ja,w elche?
         return (booknrs)
-    def handback(self,booknr):
+    def handback(self,booknr): # unbedingt pupilnr delete!
         return
 
 #if "__main__"==__name__:
