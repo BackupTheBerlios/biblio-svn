@@ -66,10 +66,24 @@ class Pupil():
         return suc
 
     def exist(self,pupilnr):
-        return
+        if db.check("nr",pupilnr):
+            if db.query('select nr from book where nr='+nr+''):
+                suc=True
+            else:
+                    suc=False
+        return suc
+
     def delete(self,pupilnr):
+        if db.check("nr",pupilnr):
+            if db.query ('select nr from ausleihe where nr='+nr+''):
+                suc=False
+            else:
+              db.query ('delete pupilnr (nr)')
+              suc=True
+             
+            return suc
         ##nur, wenn nichts mehr ausgeliehen!!
-        return
+        
     def info(self,pupilnr):
         ##info_dict=nr,vor,nach,geb
         return (info_dict)
