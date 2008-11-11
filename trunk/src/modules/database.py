@@ -9,6 +9,7 @@ class Database():
         try:
             self.con=mysql.connect(host=self.host,user=self.user,passwd=self.pw)
             self.cur=self.con.cursor()
+            self.query("USE "+ self.db_name)
         except:
             raise
     def query(self,sqlcode):
@@ -20,19 +21,24 @@ class Database():
         except:
             raise
     def check(self,type,var):
-        ##TODO:ISBN-Prüfnummer
+
         if type=="isbn":
             if len(var)==13: ##ISBN 13
-                for i in range(0,11):
-                    if type(var[i])!="int": ##Pruefe auf Zahlen
-                        return False
-                    if (i%2)==1:
-                        pruef+=3*var[i]
-                    else:
-                        pruef+=var[i]
-                if var[12]==(((10-pruef)%10)%10): ##Pruefziffernkontrolle
+                pruef=0
+                for i in range(0,11+1):
+                    try:
+                        v=int(var[i])
+                        if i%2==1:
+                            pruef+=3*v
+                        else:
+                            pruef+=v
+                    except:
+                        raise ValueError,"Invalid character in ISBN-number"
+                if (pruef%10)==int(var[12]):
                     return True
-
+                else:
+                    return False
+            ##TODO:ISBN-10-Prüfnummer
             if len(var)==10: ##ISBN 10
                 for i in range(0,8):
                     if type(var[i])!="int": ##Pruefe auf Zahlen
@@ -88,18 +94,13 @@ class Database():
         'meta' text collate utf8_unicode_ci,
         PRIMARY KEY  ('nr')
         )\n\n"""
-        self.query("USE "+self.db_name)
-        dat=self.query("SELECT * FROM ausleihe")
-        for data in dat:
+        for data in self.query("SELECT * FROM ausleihe"):
             wr+="INSERT INTO 'ausleihe' VALUES ('"+str(data[0])+"','"+str(data[1])+"')\n"
-        dat2=self.query("SELECT * FROM book")
-        for data2 in dat2:
+        for data2 in self.query("SELECT * FROM book"):
             wr+="INSERT INTO 'book' VALUES ('"+str(data2[0])+"','"+str(data2[1])+"')\n"
-        dat3=self.query("SELECT * FROM pupil")
-        for data3 in dat3:
+        for data3 in self.query("SELECT * FROM pupil"):
             wr+="INSERT INTO 'pupil' VALUES ('"+str(data3[0])+"','"+str(data3[1])+"','"+str(data3[2])+"','"+str(data3[3])+"')\n"
-        dat4=self.query("SELECT * FROM type")
-        for data4 in dat4:
+        for data4 in self.query("SELECT * FROM type"):
             wr+="INSERT INTO 'type' VALUES ('"+str(data4[0])+"','"+str(data4[1])+"','"+str(data4[2])+"','"+str(data4[3])+"','"+str(data4[4])+"')\n"
         return wr
     def __del__(self):
@@ -110,4 +111,4 @@ class Database():
 
 if __name__=="__main__":
     db=Database()
-    print db.backup()
+    print db.check("isbn",db.query("SELECT isbn from type limit 1")[0][0])
