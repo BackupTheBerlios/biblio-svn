@@ -11,7 +11,9 @@ class Book():
             suc=False
         else:
             db.query ('insert into type')
-
+            suc=True
+        return suc
+    
     def edit(self,nr,isbn,author,title):
         if(db.check("nr",nr) and db.check("isbn",isbn) and db.check("text",author) and db.check("text",title)):
             if db.query('select nr from book where nr='+nr+''):
@@ -98,7 +100,7 @@ class Pupil():
 class Ausleihe():
     def borrow(self,pupilnr,booknr):
         return
-    def book_loaned(self,booknr): # welcher schüler ein buch mit booknr asugeliehen ist
+    def book_loaned(self,booknr): # welcher schüler ein buch mit booknr asugeliehen hat
         return (pupilnr)
     def pupil_got(self,pupilnr): # ob der schüler book hat, wenn ja,w elche?
         return (booknrs)
