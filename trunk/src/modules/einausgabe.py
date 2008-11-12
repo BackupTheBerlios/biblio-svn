@@ -55,12 +55,12 @@ class Book():
 class Pupil():
     def create(self):
         db.query('insert into pupil')
-        booknr=db.query('select MAX (nr)')
+        pupilnr=db.query('select MAX (nr)')
         return pupilnr
 
     def edit(self,nr,vorname,nachname,geburtsdatum):
         if(db.check("nr",nr) and db.check("text",vorname) and db.check("text",nachname) and db.check("text",geburtsdatum)):
-            if db.query('select nr from book where nr='+nr+''):
+            if db.query('select nr from pupil where nr='+nr+''):
                 if db.query('update pupil (nr='+nr+',vorname='+vorname+',nachname='+nachname+',gebursdatum='+gebursdatum+')'):
                     suc=True
             else:
@@ -69,7 +69,7 @@ class Pupil():
 
     def exist(self,pupilnr):
         if db.check("nr",pupilnr):
-            if db.query('select nr from book where nr='+nr+''):
+            if db.query('select nr from pupil where nr='+nr+''):
                 suc=True
             else:
                     suc=False
@@ -99,11 +99,27 @@ class Pupil():
         return (info_dict)
 class Ausleihe():
     def borrow(self,pupilnr,booknr):
-        return
+        if db.query('select nr from book where nr='+booknr+'and select nr form pupil where nr='+pupilnr+' and insert into ausleihe'):
+            suc=True
+        else:
+            suc=False   
+        return suc
+    
     def book_loaned(self,booknr): # welcher schüler ein buch mit booknr asugeliehen hat
-        return (pupilnr)
+        if db.query ('select pupilnr form ausleihe where nr='+booknr+''):
+            suc=pupilnr
+        else:
+            suc=False
+            
+        return suc
+    
     def pupil_got(self,pupilnr): # ob der schüler book hat, wenn ja,w elche?
-        return (booknrs)
+        if db.query ('select all booknr from ausleihe where nr='+pupilnr+''):
+            suc=booknr
+        else:
+            suc=False
+        return suc
+    
     def handback(self,booknr): # unbedingt pupilnr delete!
         return
 
