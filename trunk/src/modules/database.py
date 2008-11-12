@@ -7,12 +7,12 @@ class Database():
     db_name='biblio'
     def __init__(self):
         try:
-            self.con=mysql.connect(host=self.host,user=self.user,passwd=self.pw)
+            self.con=mysql.connect(host=self.host, user=self.user, passwd=self.pw)
             self.cur=self.con.cursor()
             self.query("USE "+ self.db_name)
         except:
             raise
-    def query(self,sqlcode):
+    def query(self, sqlcode):
         try:
             self.cur.execute(sqlcode)
             return self.cur.fetchall()
@@ -20,12 +20,12 @@ class Database():
             return
         except:
             raise
-    def check(self,type,var):
+    def check(self, type, var):
 
         if type=="isbn":
+            pruef=0
             if len(var)==13: ##ISBN 13
-                pruef=0
-                for i in range(0,11+1):
+                for i in range(0, 11+1):
                     try:
                         v=int(var[i])
                         if i%2==1:
@@ -33,35 +33,49 @@ class Database():
                         else:
                             pruef+=v
                     except:
-                        raise ValueError,"Invalid character in ISBN-number"
+                        raise TypeError,"Invalid character in ISBN-13"
                 if (pruef%10)==int(var[12]):
                     return True
                 else:
-                    return False
-            ##TODO:ISBN-10-Prüfnummer
+                    raise ValueError,"Invalid checknumber"
             if len(var)==10: ##ISBN 10
-                for i in range(0,8):
-                    if type(var[i])!="int": ##Pruefe auf Zahlen
-                        return False
-                    pruef+=i*var[i]
-                if (pruef%11)!=10 and var[9]==(pruef%11): ##Pruefziffernkontrolle
+                for i in range(0, 9):
+                    try:
+                        pruef+=(i+1)*int(var[i])
+                    except:
+                        raise TypeError,"Invalid character in ISBN-10"
+                if (pruef%11)!=10 and int(var[9])==(pruef%11): ##Pruefziffernkontrolle
                     return True
                 elif (pruef%11)==10 and var[9]=="X": ##Pruefziffernkontrolle
                     return True
+                else:
+                    raise ValueError,"Invalid checknumber"
+            else:
+                raise ValueError,"Invalid length of ISBN"
+
         ##TODO:Text auf ungültige Zeichen prüfen
         elif type=="text":
             return
-        ##TODO:Test: check(date)
+
         elif type=="date":
-            from time import strftime
-            if len(var)==4 and var>-3000 and var<int(strftime("%Y")):
+            import time
+            import datetime
+            if len(var)==4 and int(var)>-3000 and int(var)<int(time.strftime("%Y")):
                 return True
+            if len(var)==8:
+                year=int(var[0:4])
+                month=int(var[4:6])
+                day=int(var[6:8])
+                if datetime.date(year, month, day):
+                    return True
             else:
                 return False
-        ##TODO:Nummer
+
         elif type=="nr":
-            for i in range(0,len(var)-1):
-                if type(var[i])!="int":
+            for i in range(0, len(var)):
+                try:
+                    int(var[i])
+                except:
                     return False
             return True
         else:
@@ -111,4 +125,4 @@ class Database():
 
 if __name__=="__main__":
     db=Database()
-    print db.check("isbn",db.query("SELECT isbn from type limit 1")[0][0])
+    print db.check("isbn", "200x70222")
