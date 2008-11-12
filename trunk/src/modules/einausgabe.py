@@ -99,14 +99,14 @@ class Pupil():
         return (info_dict)
 class Ausleihe():
     def borrow(self,pupilnr,booknr):
-        if db.query('select nr from book where nr='+booknr+'and select nr form pupil where nr='+pupilnr+' and insert into ausleihe'):
+        if db.query('select nr from book where bnr='+booknr+'and select nr form pupil where pnr='+pupilnr+' and insert into ausleihe'):
             suc=True
         else:
             suc=False   
         return suc
     
     def book_loaned(self,booknr): # welcher schüler ein buch mit booknr asugeliehen hat
-        if db.query ('select pupilnr form ausleihe where nr='+booknr+''):
+        if db.query ('select pupilnr form ausleihe where bnr='+booknr+''):
             suc=pupilnr
         else:
             suc=False
@@ -114,14 +114,19 @@ class Ausleihe():
         return suc
     
     def pupil_got(self,pupilnr): # ob der schüler book hat, wenn ja,w elche?
-        if db.query ('select all booknr from ausleihe where nr='+pupilnr+''):
+        if db.query ('select all booknr from ausleihe where pnr='+pupilnr+''):
             suc=booknr
         else:
             suc=False
         return suc
     
-    def handback(self,booknr): # unbedingt pupilnr delete!
-        return
+    def handback(self,booknr):     # unbedingt pupilnr delete!
+        if db.query('select booknr from ausleihe where bnr='+booknr+'and select pupilnr from ausleihe where pnr='+booknr+''):
+            db.query('delete booknr and pupilnr where bnr='+booknr+'')
+            suc=True
+        else:
+            suc=False
+        return suc
 
 #if "__main__"==__name__:
  #   klasse=Book()
