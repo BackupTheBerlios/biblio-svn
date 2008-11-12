@@ -60,26 +60,29 @@ class Database():
         elif type=="date":
             import time
             import datetime
-            if len(var)==4 and int(var)>-3000 and int(var)<int(time.strftime("%Y")):
-                return True
-            if len(var)==8:
-                year=int(var[0:4])
-                month=int(var[4:6])
-                day=int(var[6:8])
-                if datetime.date(year, month, day):
+            try:
+                if len(var)==4 and int(var)>-3000 and int(var)<int(time.strftime("%Y")):
                     return True
-            else:
-                return False
+                if len(var)==8:
+                    year=int(var[0:4])
+                    month=int(var[4:6])
+                    day=int(var[6:8])
+                    if datetime.date(year, month, day):
+                        return True
+                else:
+                    raise ValueError,"Invalid format of date"
+            finally:
+                return
 
         elif type=="nr":
             for i in range(0, len(var)):
                 try:
                     int(var[i])
                 except:
-                    return False
+                    raise TypeError,"Invalid character in nr"
             return True
         else:
-            return False
+            raise TypeError,"You didn't define a valid type to check!"
     def backup(self):
         wr=""
         wr+="""
@@ -125,4 +128,4 @@ class Database():
 
 if __name__=="__main__":
     db=Database()
-    print db.check("isbn", "200x70222")
+    print db.check("isbn", "2003702228")
