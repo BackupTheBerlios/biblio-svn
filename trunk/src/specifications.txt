@@ -21,4 +21,30 @@ database.py:
 		.query(sqlcode) --> list
 		.check(type,var) --> bool ##type= | (isbn,text,date,nr)
 		.backup() --> str(sqlcode)
+barcode.py:einausgabe.py:
+	Klasse Book()
+		.create() --> nr
+		.edit(nr,isbn,meta) --> bool ##alte Daten werden ueberschrieben, wenn nicht wiederangegeben!
+		.exist(nr) --> bool
+		.delete(nr) --> bool
+		.info(nr) --> list(dict (nr,isbn,meta))
+	Klasse Pupil()
+		.create() --> nr
+		.edit(nr,vorname,nachname,gebdatum) --> bool ##alte Daten werden ueberschrieben, wenn nicht wiederangegeben!
+		.exist(nr) --> bool
+		.delete(nr) --> bool
+		.info(nr) --> list(dict (nr,vor,nach,geb))
+	Klasse Ausleihe()
+		.borrow(pupil,book) --> bool			##Ausleihe
+		.book_loaned(bnr) --> list(pnr)			##Ist Buch ausgeliehn?
+		.pupil_got(pnr) --> list(booknr)	##Welche Buecher hat Schueler?
+		.handback(bnr) --> bool 				##Rueckgabe
+database.py:
+	Klasse Database():
+		.query(sqlcode) --> list
+		.check(type,var) --> bool ##type= | (isbn,text,date,nr)
+		.backup() --> str(sqlcode)
 barcode.py:
+	Klasse Barcode()
+		.PrintCodes(Codes)## Codes=((ID,Buchtitel)[,...]])	##CodePrint-Funktion
+
