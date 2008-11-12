@@ -1,5 +1,3 @@
-import database
-db=database.Database("")
 class Book():
     def create(self):
         db.query('insert into book')
@@ -13,7 +11,7 @@ class Book():
             db.query ('insert into type')
             suc=True
         return suc
-    
+
     def edit(self,nr,isbn,author,title):
         if(db.check("nr",nr) and db.check("isbn",isbn) and db.check("text",author) and db.check("text",title)):
             if db.query('select nr from book where nr='+nr+''):
@@ -49,7 +47,7 @@ class Book():
             suc=False
 
         return (info_dict)
-        
+
 class Pupil():
     def create(self):
         db.query('insert into pupil')
@@ -80,10 +78,10 @@ class Pupil():
             else:
               db.query ('delete pupilnr (nr)')
               suc=True
-             
+
             return suc
 
-        
+
     def info(self,pupilnr):
         info_dict=db.query('select * from pupil where nr='+nr+'')
         if db.query('select nr from pupil where nr='+str(nr))==True:
@@ -98,26 +96,26 @@ class Ausleihe():
         if db.query('select nr from book where bnr='+booknr+'and select nr form pupil where pnr='+pupilnr+' and insert into ausleihe'):
             suc=True
         else:
-            suc=False   
+            suc=False
         return suc
-    
-    def book_loaned(self,booknr): 
+
+    def book_loaned(self,booknr):
         if db.query ('select pupilnr form ausleihe where bnr='+booknr+''):
             suc=pupilnr
         else:
             suc=False
-            
+
         return suc
-    
+
     def pupil_got(self,pupilnr):
         if db.query ('select all booknr from ausleihe where pnr='+pupilnr+''):
             suc=booknr
         else:
             suc=False
         return suc
-    
 
-    def handback(self,booknr):    
+
+    def handback(self,booknr):
         if db.query('select booknr from ausleihe where bnr='+booknr+'and select pupilnr from ausleihe where pnr='+booknr+''):
             db.query('delete booknr and pupilnr where bnr='+booknr+'')
             suc=True
@@ -125,6 +123,6 @@ class Ausleihe():
             suc=False
         return suc
 
-#if "__main__"==__name__:
- #   klasse=Book()
-  #  klasse.info(3)
+if "__main__"==__name__:
+    import database
+    db=database.Database()
