@@ -1,6 +1,5 @@
 # -*- coding: cp1252 -*-
 import Tkinter as tk
-#import random as ra
 import simplewinprint as druck
 class Main():
     '''Druckfunktion für Bibliothekscodes.
@@ -24,30 +23,21 @@ class Main():
         Lines=[]
         BuchtitelZeile=''
         BarcodeZeile=''
-        index=0
-        for Buch in Codes:
+        for Index in range(len(Codes)):
             Buchtitel=''
             for i in range(12):
-                try:
-                    Buchtitel+=Buch[1][i]
-                except:
-                    Buchtitel+=' '
-            print Buchtitel
+                try: Buchtitel+=Codes[Index][1][i]
+                except: Buchtitel+=' '
             BuchtitelZeile+=Buchtitel
-            BarcodeZeile+='*'+Buch[0]+'*'
-            index+=1
-            if index==5:
+            BarcodeZeile+='*'+Codes[Index][0]+'*'
+            if (Index+1)%5==0:
                 Lines.append((BuchtitelZeile,BarcodeZeile))
-                index=0
                 BuchtitelZeile=''
                 BarcodeZeile=''
             else:
                 BuchtitelZeile+=' '
                 BarcodeZeile+=' '
-        if len(Codes)/5.0>len(Codes)/5:
-            Lines.append((BuchtitelZeile,BarcodeZeile))
-        print Lines
-        #'''
+        if len(Codes)%5!=0: Lines.append((BuchtitelZeile,BarcodeZeile))
         self.printer.startdoc()
         for Line in Lines:
             self.printer.print_textblock(
@@ -59,17 +49,20 @@ class Main():
                font_weight = 700,
                font_size=30,
                font_name = "IDAutomationHC39M")
-            self.printer.print_textblock(
-                text = '   ',
-                font_weight = 700,
-                font_size=12,
-                font_name = "IDAutomationHC39M")
+            if (Lines.index(Line)+1)%14!=0:
+                self.printer.print_textblock(
+                    text = '   ',
+                    font_weight = 700,
+                    font_size=12,
+                    font_name = "IDAutomationHC39M")
         self.printer.print_textblock()
         self.printer.enddoc()
 
 if __name__ == "__main__":
     klasse=Main()
-    klasse.PrintCodes((("1000018933","Titel"),("1000018933","zu langer Titel"),
-                       ("1000018933","blablablabla"),("1000018933","bla"),
-                       ("1000018933","bla"),("1000018933","bla"),("1000018933","bla")))
+    bla=[("1000018933","Titel"),("1000018933","zu langer Titel"),("1000018933","blablablabla"),("1000018933","bla"),("1000018933","bla")]
+    liste=[]
+    for i in range(1500): liste.extend(bla)
+    liste.append(("1000018933","Titel"))
+    klasse.PrintCodes(liste)
 
