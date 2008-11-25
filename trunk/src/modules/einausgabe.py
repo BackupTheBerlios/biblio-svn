@@ -11,7 +11,7 @@ class Book():
         if not(db.check ("isbn",isbn) and db.check("text",author) and db.check("text",title)):
             suc=False
         else:
-            db.query ('insert into type values ("'+isbn+'", "'+author+'", "'+title+'")')
+            db.query ('insert into type values (Null,"'+isbn+'", "'+author+'", "'+title+'")')
             suc=True
         return suc
 
