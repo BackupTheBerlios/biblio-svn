@@ -5,7 +5,7 @@ class Book():
     def create(self):
         db.query('insert into book values()')
         booknr=db.query('select max(nr) from book')
-        return booknr
+        return booknr[0][0]
 
     def create_type (self,isbn,author,title):
         if (db.check ("isbn",isbn) and db.check("text",author) and db.check("text",title)):
@@ -128,4 +128,7 @@ class Ausleihe():
 
 if "__main__"==__name__:
     buch=Book()
-    buch.create()
+    print buch.create()
+
+#     buch=Book()
+#     buch.create_type(isbn, author, title)
