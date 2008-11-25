@@ -118,7 +118,7 @@ class Database():
         for data3 in self.query("SELECT * FROM pupil"):
             wr+="INSERT INTO 'pupil' VALUES ('"+str(data3[0])+"','"+str(data3[1])+"','"+str(data3[2])+"','"+str(data3[3])+"')\n"
         for data4 in self.query("SELECT * FROM type"):
-            wr+="INSERT INTO 'type' VALUES ('"+str(data4[0])+"','"+str(data4[1])+"','"+str(data4[2])+"','"+str(data4[3])+"','"+str(data4[4])+"')\n"
+            wr+="INSERT INTO 'type' VALUES ('"+str(data4[0])+"','"+str(data4[1])+"','"+str(data4[2])+"','"+str(data4[3])+"')\n"
         return wr
     def __del__(self):
         try:
@@ -128,28 +128,26 @@ class Database():
 
 if __name__=="__main__": ##Debug-Funktion
     db=Database()
-#===============================================================================
-#    print db.check("isbn","350710606X") #valid 10
+    print db.check("isbn","350710606X") #valid 10
     print db.check("isbn","9783499612453") #valid 13
-#    print db.check("text", "Hallo!") #valid
-#    print db.check("date", "1990") #valid
-#    print db.check("date", "19900823") #valid
-#    print db.check("nr", "123456") #valid
+    print db.check("text", "Hallo!") #valid
+    print db.check("date", "1990") #valid
+    print db.check("date", "19900823") #valid
+    print db.check("nr", "123456") #valid
+    print "---"
+#===============================================================================
+#    print db.check("isbn","9999999998") #invalid 10
+#    print db.check("isbn","9999999999999") #invalid 13
+#    print db.check("isbn","333") #invalid length
+#    print db.check("text", "el';)delete * from books") #invalid
+#    print db.check("date", "3500") #invalid
+#    print db.check("date", "19900231") #invalid
+#    print db.check("nr", "abc") #invalid
+#    print db.check("else", "murks") #invalid type
 #    print "---"
 #===============================================================================
-    #print db.check("isbn","9999999998") #invalid 10
-    #print db.check("isbn","9999999999999") #invalid 13
-    #print db.check("isbn","333") #invalid length
-    #print db.check("text", "el';)delete * from books") #invalid
-    #print db.check("date", "3500") #invalid
-    #print db.check("date", "19900231") #invalid
-    #print db.check("nr", "abc") #invalid
-    #print db.check("else", "murks") #invalid type
-#===============================================================================
-#    print "---"
-#    print db.backup()
-#    print "---"
-#    print db.query("SELECT * from book")
-#===============================================================================
+    print db.backup()
+    print "---"
+    print db.query("SELECT * from book")
     print "---"
     print "Test erfolgreich absolviert."
