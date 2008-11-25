@@ -56,7 +56,7 @@ class Database():
                 raise ValueError,"Invalid length of ISBN"
 
         elif type=="text":
-            if var.find(";)")==-1:
+            if var.find(";)")!=-1:
                 raise ValueError,"Invalid characters in Text -- SQL-Injection vermutet!"
             else:
                 return True
