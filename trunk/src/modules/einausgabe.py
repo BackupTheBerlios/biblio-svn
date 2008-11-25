@@ -1,7 +1,10 @@
+import database
+db=database.Database()
+
 class Book():
     def create(self):
-        db.query('insert into book')
-        booknr=db.query('select MAX (nr)')
+        db.query('insert into book values()')
+        booknr=db.query('select max(nr) from book')
         return booknr
 
     def create_type (self,isbn,author,title):
@@ -40,7 +43,7 @@ class Book():
 
     def info(self,booknr):
         info_dict=db.query('select booknr, nr, isbn, author, title from type as t, from book as b where t.booknr=b.booknr')
-        if db.query('select nr from book where nr='+str(nr))==True:
+        if db.query('select nr from book where nr='+nr+'')==True:
             suc=True
 
         else:
@@ -124,5 +127,5 @@ class Ausleihe():
         return suc
 
 if "__main__"==__name__:
-    import database
-    db=database.Database()
+    buch=Book()
+    buch.create()
