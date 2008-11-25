@@ -8,10 +8,10 @@ class Book():
         return booknr[0][0]
 
     def create_type (self,isbn,author,title):
-        if (db.check ("isbn",isbn) and db.check("text",author) and db.check("text",title)):
+        if not(db.check ("isbn",isbn) and db.check("text",author) and db.check("text",title)):
             suc=False
         else:
-            db.query ('insert into type')
+            db.query ('insert into type values ("'+isbn+'", "'+author+'", "'+title+'")')
             suc=True
         return suc
 
@@ -127,8 +127,8 @@ class Ausleihe():
         return suc
 
 if "__main__"==__name__:
-    buch=Book()
-    print buch.create()
+#    buch=Book()
+#    print buch.create()
 
-#     buch=Book()
-#     buch.create_type(isbn, author, title)
+     buch=Book()
+     print buch.create_type("3499612453" , "SQL" , "Allgemeine Chemie" )
