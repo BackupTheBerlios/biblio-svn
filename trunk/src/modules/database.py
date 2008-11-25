@@ -56,10 +56,10 @@ class Database():
                 raise ValueError,"Invalid length of ISBN"
 
         elif type=="text":
-            if not var.find(";)"):
-                return True
-            else:
+            if var.find(";)")==-1:
                 raise ValueError,"Invalid characters in Text -- SQL-Injection vermutet!"
+            else:
+                return True
 
         elif type=="date":
             import time
