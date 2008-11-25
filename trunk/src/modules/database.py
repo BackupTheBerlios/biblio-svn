@@ -26,7 +26,6 @@ class Database():
             pruef=0
             if len(var)==13: ##ISBN 13
                 for i in range(0, 11+1):
-                    print var[i]
                     try:
                         v=int(var[i])
                         if i%2==1:
@@ -35,7 +34,6 @@ class Database():
                             pruef+=v
                     except:
                         raise TypeError,"Invalid character in ISBN-13"
-                print pruef%10
                 if (pruef%10)==int(var[12]):
                     return True
                 else:
@@ -132,7 +130,7 @@ if __name__=="__main__": ##Debug-Funktion
     db=Database()
 #===============================================================================
 #    print db.check("isbn","350710606X") #valid 10
-    print db.check("isbn","9783507106062") #valid 13
+    print db.check("isbn","9783499612453") #valid 13
 #    print db.check("text", "Hallo!") #valid
 #    print db.check("date", "1990") #valid
 #    print db.check("date", "19900823") #valid
