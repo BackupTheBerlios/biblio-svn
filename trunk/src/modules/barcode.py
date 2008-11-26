@@ -62,7 +62,7 @@ if __name__ == "__main__":
     klasse=Main()
     bla=[("1000018933","Titel"),("1000018933","zu langer Titel"),("1000018933","blablablabla"),("1000018933","bla"),("1000018933","bla")]
     liste=[]
-    for i in range(1500): liste.extend(bla)
+    for i in range(15): liste.extend(bla)
     liste.append(("1000018933","Titel"))
     klasse.PrintCodes(liste)
 
