@@ -96,38 +96,78 @@ class Pupil():
         return (info_dict)
 class Ausleihe():
     def borrow(self,pupilnr,booknr):
-        if db.query('select nr from book where bnr='+booknr+'and select nr form pupil where pnr='+pupilnr+' and insert into ausleihe'):
-            suc=True
+        if db.check("nr",pupilnr) and db.check("nr", booknr) and pupilnr!="" and booknr!="":
+            if db.query("select nr from book where nr="+booknr+";")==():
+                raise ValueError,"Buch existiert nicht!"
+            if db.query("select nr from pupil where nr="+pupilnr+";")==():
+                raise ValueError,"Schueler existiert nicht!"
+            if db.query("select * from ausleihe where pnr="+pupilnr+" and bnr="+booknr+";")!=():
+                raise ValueError,"Kombination bereits ausgeliehn!"
+            db.query('insert into ausleihe values((select pupil.nr from pupil where pupil.nr='+pupilnr+'),(select book.nr from book where book.nr='+booknr+'))')
+            return True
         else:
-            suc=False
-        return suc
+            raise ValueError,"Nummer(n) wurde(n) nicht uebergeben!"
 
     def book_loaned(self,booknr):
-        if db.query ('select pupilnr form ausleihe where bnr='+booknr+''):
-            suc=pupilnr
+        if db.check("nr",booknr) and booknr!="":
+            if db.query('select nr from book where nr='+booknr+';')!=():
+                for p in db.query('select pnr from ausleihe where bnr='+booknr+';'):
+                    return p[0]
+                return False
+            else:
+                raise ValueError,"Buch existiert nicht!"
         else:
-            suc=False
-
-        return suc
+            raise ValueError,"Buchnummer wurde nicht uebergeben!"
 
     def pupil_got(self,pupilnr):
-        if db.query ('select all booknr from ausleihe where pnr='+pupilnr+''):
-            suc=booknr
+        if db.check("nr",pupilnr) and pupilnr!="":
+            if db.query('select nr from pupil where nr='+pupilnr+';'):
+                blist=[]
+                for b in db.query ('select bnr from ausleihe where pnr='+pupilnr+';'):
+                    blist.append(b[0])
+                if blist!=[]:
+                    return tuple(blist)
+                else:
+                    return False
+            else:
+                raise ValueError,"Schueler existiert nicht!"
         else:
-            suc=False
-        return suc
-
+            raise ValueError,"Schuelernummer wurde nicht uebergeben!"
 
     def handback(self,booknr):
-        if db.query('select booknr from ausleihe where bnr='+booknr+'and select pupilnr from ausleihe where pnr='+booknr+''):
-            db.query('delete booknr and pupilnr where bnr='+booknr+'')
-            suc=True
+        if db.check("nr",booknr) and booknr!="":
+            if db.query('select nr from book where nr='+booknr+';')!=():
+                if db.query('select bnr from ausleihe where bnr='+booknr+';')!=():
+                    db.query('delete from ausleihe where bnr='+booknr+';')
+                    return True
+                else:
+                    raise ValueError,"Buch ist nicht ausgeliehn!"
+            else:
+                raise ValueError,"Buch existiert nicht!"
         else:
-            suc=False
-        return suc
+            raise ValueError,"Buchnummer wurde nicht uebergeben!"
+
+def mach_lang(nr_kurz):
+    if int(nr_kurz)<10**9:
+        return str(10**9+int(nr_kurz))
+    else:
+        raise ValueError,"Ungueltige Nummer!"
+def mach_kurz(nr_lang):
+    if int(nr_lang)>10**9:
+        return str(int(nr_lang)-(10**9))
+    else:
+        raise ValueError,"Ungueltige Nummer!"
 
 if "__main__"==__name__:
-     buch=Book()
-#    print buch.create()
-#    print buch.create_type("3499612453" , "SL" , "Allgemeine Chemie" )
-     print buch.exist(5)
+#===============================================================================
+#    a=Ausleihe()
+#    print a.borrow("", "")
+#    print a.book_loaned("5")
+#    print a.pupil_got("1")
+#    print a.handback("20")
+#===============================================================================
+
+#===============================================================================
+#    print mach_kurz("1000013765")
+#    print mach_lang("1434")
+#===============================================================================
