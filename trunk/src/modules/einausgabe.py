@@ -66,7 +66,7 @@ class Pupil():
                     suc=True
                 except:
                     suc=False
-        return suc
+                return suc 
 
     def exist(self,pupilnr):
         if db.check("nr",pupilnr):
@@ -77,23 +77,21 @@ class Pupil():
         return suc
 
     def delete(self,pupilnr):
-        if db.check("nr",pupilnr):
-            if db.query ('select pnr from ausleihe where pnr='+pupilnr+''):
-                suc=False
-            else:
-              db.query ('delete from pupil where nr='+pupilnr+'')
-              suc=True
-
-            return suc
+        for number in pupilnr:
+            if db.check("nr",pupilnr):
+                if db.query ('select pnr from ausleihe where pnr='+str(number)+''):
+                    suc=False
+                else:
+                  db.query ('delete from pupil where nr='+str(number)+'')
+                  suc=True
+    
+        return suc
 
 
     def info(self,pupilnr):
-        info_dict=db.query('select * from pupil where nr='+pupilnr+'')
-        if db.query('select nr from pupil where nr='+str(pupilnr))==True:
-            suc=True
-
-        else:
-            suc=False
+        info_dict=db.query('select nr, vor, nach, date_format(geb,"%e.%c.%Y") from pupil where nr='+str(pupilnr)+'')
+        if len(info_dict)==0:
+            return False
 
         return (info_dict)
 class Ausleihe():
@@ -161,16 +159,19 @@ def mach_kurz(nr_lang):
         raise ValueError,"Ungueltige Nummer!"
 
 if "__main__"==__name__:
-     buch=Book()
+#     buch=Book()
 #    print buch.create()
 #    print buch.create_type("3499612453" , "DUUUL" , "Allgemeine Chemie" )
 #    print buch.exist("10")
 #    print buch.edit("12", "3499612453" , "DL" , "Allgemeine Chemie")
-     print buch.info("12")
-#    schueler=Pupil()
-#    print schueler.create()
-#    print schueler.edit("7","Micky","Mouse","1990-5-22")
-     print schueler.info(7)#===============================================================================
+#    print buch.info("12")
+    schueler=Pupil()
+#   print schueler.create()
+#   print schueler.edit("10","Micky","Mouse","1990-5-22")
+#    print schueler.info(7)[0]
+    print schueler.delete([10])
+#    print schueler.info(8)
+#===============================================================================
 #    a=Ausleihe()
 #    print a.borrow("", "")
 #    print a.book_loaned("5")
