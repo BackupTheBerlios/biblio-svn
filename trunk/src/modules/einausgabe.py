@@ -53,22 +53,23 @@ class Book():
 
 class Pupil():
     def create(self):
-        db.query('insert into pupil')
-        pupilnr=db.query('select MAX (nr)')
-        return pupilnr
+        db.query('insert into pupil values()')
+        pupilnr=db.query('select max(nr) from pupil')
+        return pupilnr [0][0]
 
     def edit(self,nr,vorname,nachname,geburtsdatum):
         if(db.check("nr",nr) and db.check("text",vorname) and db.check("text",nachname) and db.check("text",geburtsdatum)):
             if db.query('select nr from pupil where nr='+nr+''):
-                if db.query('update pupil (nr='+nr+',vorname='+vorname+',nachname='+nachname+',gebursdatum='+gebursdatum+')'):
+                try:
+                    db.query('update pupil SET vor="'+vorname+'",nach="'+nachname+'",geb="'+geburtsdatum+'" where nr='+nr+'')
                     suc=True
-            else:
+                except:
                     suc=False
         return suc
 
     def exist(self,pupilnr):
         if db.check("nr",pupilnr):
-            if db.query('select nr from pupil where nr='+nr+''):
+            if db.query('select nr from pupil where nr='+pupilnr+''):
                 suc=True
             else:
                     suc=False
@@ -76,18 +77,18 @@ class Pupil():
 
     def delete(self,pupilnr):
         if db.check("nr",pupilnr):
-            if db.query ('select nr from ausleihe where nr='+nr+''):
+            if db.query ('select pnr from ausleihe where pnr='+pupilnr+''):
                 suc=False
             else:
-              db.query ('delete pupilnr (nr)')
+              db.query ('delete from pupil where nr='+pupilnr+'')
               suc=True
 
             return suc
 
 
     def info(self,pupilnr):
-        info_dict=db.query('select * from pupil where nr='+nr+'')
-        if db.query('select nr from pupil where nr='+str(nr))==True:
+        info_dict=db.query('select * from pupil where nr='+pupilnr+'')
+        if db.query('select nr from pupil where nr='+str(pupilnr))==True:
             suc=True
 
         else:
@@ -159,7 +160,11 @@ def mach_kurz(nr_lang):
         raise ValueError,"Ungueltige Nummer!"
 
 if "__main__"==__name__:
-#===============================================================================
+# ============class Pupil
+    schueler=Pupil()
+#    print schueler.create()
+#    print schueler.edit("7","Micky","Mouse","1990-5-22")
+    print schueler.info(7)#===============================================================================
 #    a=Ausleihe()
 #    print a.borrow("", "")
 #    print a.book_loaned("5")
