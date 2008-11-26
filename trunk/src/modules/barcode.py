@@ -29,7 +29,7 @@ class Main():
                 try: Buchtitel+=Codes[Index][1][i]
                 except: Buchtitel+=' '
             BuchtitelZeile+=Buchtitel
-            BarcodeZeile+='*'+Codes[Index][0]+'*'
+            BarcodeZeile+='*'+str(Codes[Index][0])+'*'
             if (Index+1)%5==0:
                 Lines.append((BuchtitelZeile,BarcodeZeile))
                 BuchtitelZeile=''
