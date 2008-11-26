@@ -8,28 +8,31 @@ class Book():
         return booknr[0][0]
 
     def create_type (self,isbn,author,title):
-        if (db.check ("isbn",isbn) and db.check("text",author) and db.check("text",title)):
+        if not(db.check ("isbn",isbn) and db.check("text",author) and db.check("text",title)):
             suc=False
         else:
-            db.query ('insert into type values (Null,"'+isbn+'", "'+author+'", "'+title+'")')
-            suc=True
+            if db.query('select isbn from type where isbn='+isbn+''):
+                suc=False
+            else:
+                db.query ('insert into type values (Null,"'+isbn+'", "'+author+'", "'+title+'")')
+                suc=True
         return suc
 
     def edit(self,nr,isbn,author,title):
         if(db.check("nr",nr) and db.check("isbn",isbn) and db.check("text",author) and db.check("text",title)):
-            if db.query('select nr from book where nr='+nr+''):
-                if db.query('update book (nr='+nr+',isbn='+isbn+',author='+author+',title='+title+')'):
-                    suc=True
-            else:
-                    suc=False
+            try:
+                db.query('update type set isbn="'+isbn+'" ,author="'+author+'" ,title="'+title+'" where nr='+nr+'')
+                suc=True
+            except:
+                suc=False
         return suc
 
     def exist(self,booknr):
         if db.check("nr",booknr):
-            if db.query('select nr from book where nr='+nr+''):
+            if db.query('select nr from book where nr='+booknr+''):
                 suc=True
             else:
-                    suc=False
+                suc=False
         return suc
 
     def delete(self,booknr):
@@ -41,16 +44,14 @@ class Book():
                     suc=False
          return suc
 
-    def info(self,booknr):
-        info_dict=db.query('select booknr, nr, isbn, author, title from type as t, from book as b where t.booknr=b.booknr')
-        if db.query('select nr from book where nr='+nr+'')==True:
-            suc=True
+    def info(self,nr):
+        info_dict=db.query('select t.isbn, t.author, t.title from type as t, from book as b where b.nr="'+str(nr)+'") and b.type=t.nr')
+        #if db.query('select nr from book where nr='+nr+'')#==True:
+        #    suc=True
 
-        else:
-            suc=False
+        #else:
 
         return (info_dict)
-
 class Pupil():
     def create(self):
         db.query('insert into pupil values()')
@@ -160,6 +161,13 @@ def mach_kurz(nr_lang):
         raise ValueError,"Ungueltige Nummer!"
 
 if "__main__"==__name__:
+<<<<<<< .mine
+     buch=Book()
+#    print buch.create()
+#    print buch.create_type("3499612453" , "DUUUL" , "Allgemeine Chemie" )
+#    print buch.exist("10")
+#    print buch.edit("12", "3499612453" , "DL" , "Allgemeine Chemie")
+     print buch.info("12")=======
 # ============class Pupil
     schueler=Pupil()
 #    print schueler.create()
@@ -175,4 +183,4 @@ if "__main__"==__name__:
 #===============================================================================
 #    print mach_kurz("1000013765")
 #    print mach_lang("1434")
-#===============================================================================
+#===============================================================================>>>>>>> .r81
