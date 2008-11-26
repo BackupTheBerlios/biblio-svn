@@ -36,22 +36,22 @@ class Book():
         return suc
 
     def delete(self,booknr):
-     if db.check("nr",booknr):
-         if db.query ('select nr from book where nr='+nr+''):
-             db.query ('delete booknr (nr)')
-             suc=True
-         else:
-                    suc=False
-         return suc
+        if db.check("nr",booknr):
+            try:
+                if db.query ('Select nr from book where nr="'+booknr+'"') ==(): return False
+                db.query ('delete from book where nr="'+booknr+'"')
+                return True
+            except: return False
+        else: return False
 
-    def info(self,nr):
-        info_dict=db.query('select t.isbn, t.author, t.title from type as t, from book as b where b.nr="'+str(nr)+'") and b.type=t.nr')
-        #if db.query('select nr from book where nr='+nr+'')#==True:
+    def info(self,booknr):
+        info_dict=db.query('SELECT t.isbn, t.author, t.title FROM TYPE AS t, book AS b WHERE (b.nr = "'+str(booknr)+'" AND b.type = t.nr)')
+        #if db.query('select nr from book where nr='+nr+'')==True:
         #    suc=True
 
         #else:
 
-        return (info_dict)
+        return (info_dict[0])
 class Pupil():
     def create(self):
         db.query('insert into pupil values()')
@@ -159,6 +159,21 @@ def mach_kurz(nr_lang):
         raise ValueError,"Ungueltige Nummer!"
 
 if "__main__"==__name__:
+     buch=Book()
+     #print buch.create()                                                     #True
+     #print buch.create_type("3499612453" , "DUUUL" , "Allgemeine Chemie" )   #True
+     #print buch.exist("10")                                                  #True
+     #print buch.edit("12", "3499612453" , "DL" , "Allgemeine Chemie")        #True
+     #print buch.info("1")                                                    #True
+     #print buch.delete("11")                                                 #True
+
+
+#    schueler=Pupil()
+#    print schueler.create()
+#    print schueler.edit("7","Micky","Mouse","1990-5-22")
+#    print schueler.info(7)#===============================================================================
+
+
 #     buch=Book()
 #    print buch.create()
 #    print buch.create_type("3499612453" , "DUUUL" , "Allgemeine Chemie" )
