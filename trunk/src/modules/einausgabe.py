@@ -161,18 +161,16 @@ def mach_kurz(nr_lang):
         raise ValueError,"Ungueltige Nummer!"
 
 if "__main__"==__name__:
-<<<<<<< .mine
      buch=Book()
 #    print buch.create()
 #    print buch.create_type("3499612453" , "DUUUL" , "Allgemeine Chemie" )
 #    print buch.exist("10")
 #    print buch.edit("12", "3499612453" , "DL" , "Allgemeine Chemie")
-     print buch.info("12")=======
-# ============class Pupil
-    schueler=Pupil()
+     print buch.info("12")
+#    schueler=Pupil()
 #    print schueler.create()
 #    print schueler.edit("7","Micky","Mouse","1990-5-22")
-    print schueler.info(7)#===============================================================================
+     print schueler.info(7)#===============================================================================
 #    a=Ausleihe()
 #    print a.borrow("", "")
 #    print a.book_loaned("5")
