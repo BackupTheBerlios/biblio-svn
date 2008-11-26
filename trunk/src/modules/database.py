@@ -25,7 +25,7 @@ class Database():
         if type=="isbn":
             pruef=0
             if len(var)==13: ##ISBN 13
-                for i in range(0, 11+1):
+                for i in range(0, 12+1):
                     try:
                         v=int(var[i])
                         if i%2==1:
@@ -34,7 +34,7 @@ class Database():
                             pruef+=v
                     except:
                         raise TypeError,"Invalid character in ISBN-13"
-                if (pruef%10)==int(var[12]):
+                if (pruef%10)==0:
                     return True
                 else:
                     raise ValueError,"Invalid checknumber"
