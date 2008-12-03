@@ -71,7 +71,7 @@ class Pupil():
             if db.query('select nr from pupil where nr='+nr+''):
                 try:
                     db.query('update pupil SET vor="'+vorname+'",nach="'+nachname+'",geb="'+geburtsdatum+'" where nr='+nr+'')
-                    suc=True
+                    suc=True 
                 except:
                     suc=False
                 return suc 
@@ -85,21 +85,21 @@ class Pupil():
         return suc
 
     def delete(self,pupilnr):
-        for number in pupilnr:
-            if db.check("nr",pupilnr):
-                if db.query ('select pnr from ausleihe where pnr='+str(number)+''):
-                    suc=False
+        if db.check("nr",pupilnr):
+            if db.query ('select pnr from ausleihe where pnr='+str(pupilnr)+'')!=():
+                suc=False
+            else:
+                if db.query ('select nr from pupil where nr='+str(pupilnr)+'')!=():
+                    db.query ('delete from pupil where nr='+str(pupilnr)+'')
+                    suc=True
                 else:
-                  db.query ('delete from pupil where nr='+str(number)+'')
-                  suc=True
-    
+                    suc=False
         return suc
-
 
     def info(self,pupilnr):
         info_dict=db.query('select nr, vor, nach, date_format(geb,"%e.%c.%Y") from pupil where nr='+str(pupilnr)+'')
         if len(info_dict)==0:
-            return False
+            return [False]
 
         return (info_dict)
 class Ausleihe():
@@ -189,12 +189,13 @@ if "__main__"==__name__:
 #    print buch.exist("10")
 #    print buch.edit("12", "3499612453" , "DL" , "Allgemeine Chemie")
 #    print buch.info("12")
-     #schueler=Pupil()
-#   print schueler.create()
-#   print schueler.edit("10","Micky","Mouse","1990-5-22")
-#    print schueler.info(7)[0]
-     #print schueler.delete([10])
-#    print schueler.info(8)
+#==================================================
+#    schueler=Pupil()
+#    print schueler.exist('11')
+#    print schueler.create()
+#    print schueler.edit("14","Micky","Mouse","1990-5-22")
+#    print schueler.info(11)[0]
+#    print schueler.delete('2')
 #===============================================================================
 #    a=Ausleihe()
 #    print a.borrow("", "")
