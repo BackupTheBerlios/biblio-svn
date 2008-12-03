@@ -9,14 +9,13 @@ class Book():
 
     def create_type (self,isbn,author,title):
         if not(db.check ("isbn",isbn) and db.check("text",author) and db.check("text",title)):
-            suc=False
+            return False
         else:
             if db.query('select isbn from type where isbn='+isbn+''):
-                suc=False
+                return False
             else:
                 db.query ('insert into type values (Null,"'+isbn+'", "'+author+'", "'+title+'")')
-                suc=True
-        return suc
+                return db.query('SELECT nr from type WHERE (nr = "'+str(booknr)+'" AND b.type = t.nr)')
 
     def edit(self,nr,isbn,author,title):
         if(db.check("nr",nr) and db.check("isbn",isbn) and db.check("text",author) and db.check("text",title)):
@@ -52,6 +51,15 @@ class Book():
         #else:
 
         return (info_dict[0])
+    
+    def type_info(self,nr):
+        if db.check("nr",nr):
+            info_dict=db.query('Select isbn, author, title from type where nr="'+str(nr)+'"')
+            
+            try: return (info_dict[0])
+            except: return False
+            
+        
 class Pupil():
     def create(self):
         db.query('insert into pupil values()')
@@ -161,11 +169,12 @@ def mach_kurz(nr_lang):
 if "__main__"==__name__:
      buch=Book()
      #print buch.create()                                                     #True
-     #print buch.create_type("3499612453" , "DUUUL" , "Allgemeine Chemie" )   #True
+     #print buch.create_type("9783596271207" , "DUUUL" , "Allgemeine Chemie" )   #True
      #print buch.exist("10")                                                  #True
-     #print buch.edit("12", "3499612453" , "DL" , "Allgemeine Chemie")        #True
+     #print buch.edit("3", "3499612453" , "DL" , "Allgemeine Chemie")        #True
      #print buch.info("1")                                                    #True
-     #print buch.delete("11")                                                 #True
+     #print buch.delete("10")                                                 #True
+     #print buch.type_info("1")
 
 
 #    schueler=Pupil()
@@ -180,11 +189,11 @@ if "__main__"==__name__:
 #    print buch.exist("10")
 #    print buch.edit("12", "3499612453" , "DL" , "Allgemeine Chemie")
 #    print buch.info("12")
-    schueler=Pupil()
+     #schueler=Pupil()
 #   print schueler.create()
 #   print schueler.edit("10","Micky","Mouse","1990-5-22")
 #    print schueler.info(7)[0]
-    print schueler.delete([10])
+     #print schueler.delete([10])
 #    print schueler.info(8)
 #===============================================================================
 #    a=Ausleihe()
