@@ -35,7 +35,7 @@ class Database():
                 if (pruef%10)==0:
                     return True
                 else:
-                    raise Warning,"Invalid checknumber"
+                    raise ValueError,"Invalid checknumber"
             if len(var)==10: ##ISBN 10
                 for i in range(0, 9):
                     try:
