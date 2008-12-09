@@ -179,8 +179,11 @@ if "__main__"==__name__:
 
 #    schueler=Pupil()
 #    print schueler.create()
-#    print schueler.edit("7","Micky","Mouse","1990-5-22")
-#    print schueler.info(7)#===============================================================================
+#    print schueler.edit("15","Micky","Mouse","1990-5-22")
+#    print schueler.info(15)
+#    print schueler.exist("16")
+#    print schueler.delete("16")
+#===============================================================================
 
 
 #     buch=Book()
