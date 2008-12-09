@@ -68,13 +68,11 @@ class Pupil():
 
     def edit(self,nr,vorname,nachname,geburtsdatum):
         if(db.check("nr",nr) and db.check("text",vorname) and db.check("text",nachname) and db.check("text",geburtsdatum)):
-            if db.query('select nr from pupil where nr='+nr+''):
-                try:
-                    db.query('update pupil SET vor="'+vorname+'",nach="'+nachname+'",geb="'+geburtsdatum+'" where nr='+nr+'')
-                    suc=True 
-                except:
-                    suc=False
-                return suc 
+            if db.query('select nr from pupil where nr='+nr+'')!=():
+                db.query('update pupil SET vor="'+vorname+'",nach="'+nachname+'",geb="'+geburtsdatum+'" where nr='+nr+'')
+                return True
+            else:
+                raise ValueError,"Invalid Input or Pupilnumber doesn't exist"
 
     def exist(self,pupilnr):
         if db.check("nr",pupilnr):
@@ -91,7 +89,7 @@ class Pupil():
             else:
                 if db.query ('select nr from pupil where nr='+str(pupilnr)+'')!=():
                     db.query ('delete from pupil where nr='+str(pupilnr)+'')
-                    suc=True
+                    suc=True    
                 else:
                     suc=False
         return suc
@@ -177,9 +175,9 @@ if "__main__"==__name__:
      #print buch.type_info("1")
 
 
-#    schueler=Pupil()
+     schueler=Pupil()
 #    print schueler.create()
-#    print schueler.edit("15","Micky","Mouse","1990-5-22")
+     print schueler.edit("9","Micky","Mouse","1990-5-22")
 #    print schueler.info(15)
 #    print schueler.exist("16")
 #    print schueler.delete("16")
