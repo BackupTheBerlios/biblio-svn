@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 class Database():
+    '''Klasse Database():
+        .query(sqlcode) --> tupel
+        .check(type,var) --> bool|raise ##type= | (isbn,text,date,nr)
+        .backup() --> str(sqlcode)'''
     host='pc17'
     user='biblio'
     pw='test'
@@ -156,3 +160,4 @@ if __name__=="__main__": ##Debug-Funktion
 #    print db.query("SELECT * from book")
 #   print "---"
     print "Test erfolgreich absolviert."
+    print help(Database)
