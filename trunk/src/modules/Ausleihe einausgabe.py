@@ -184,7 +184,7 @@ if "__main__"==__name__:
 
      schueler=Pupil()
 #    print schueler.create()
-     print schueler.edit("9","Micky","Mouse","1990-5-22")
+     print schueler.edit("2","Micky","Mouse","1990-5-22")
 #    print schueler.info(15)
 #    print schueler.exist("16")
 #    print schueler.delete("16")
