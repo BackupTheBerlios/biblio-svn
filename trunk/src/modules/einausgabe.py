@@ -33,7 +33,14 @@ class Book():
             else:
                 suc=False
         return suc
-
+    def book_type_connect(self,booknr,typenr):
+        if db.check("nr",booknr) and db.check("nr",typenr):
+            #liste=db.query('select nr from book where nr='+booknr+''), db.query('select nr from type where nr='+typenr+'')
+            db.query('update book set type="'+typenr+'" where nr='+booknr+'')
+            return True
+        else:
+            return False
+    
     def delete(self,booknr):
         if db.check("nr",booknr):
             try:
@@ -167,13 +174,13 @@ def mach_kurz(nr_lang):
 if "__main__"==__name__:
      buch=Book()
      #print buch.create()                                                     #True
-     #print buch.create_type("9783596271207" , "DUUUL" , "Allgemeine Chemie" )   #True
-     #print buch.exist("10")                                                  #True
-     #print buch.edit("3", "3499612453" , "DL" , "Allgemeine Chemie")        #True
-     #print buch.info("1")                                                    #True
-     #print buch.delete("10")                                                 #True
-     #print buch.type_info("1")
-
+     #print buch.create_type("9783596271207" , "DUUUL" , "Allgemeine Chemie" )#True
+     #print buch.exist("30")                                                  #True
+     #print buch.edit("3", "3499612453" , "DL" , "Allgemeine Chemie")         #True
+     #print buch.info("23")                                                   #True
+     #print buch.delete("9")                                                  #True
+     #print buch.type_info("3")                                               #True
+     #print buch.book_type_connect("7","3")                                   #True
 
      schueler=Pupil()
 #    print schueler.create()
