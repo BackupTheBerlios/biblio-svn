@@ -84,27 +84,25 @@ class Pupil():
     def exist(self,pupilnr):
         if db.check("nr",pupilnr):
             if db.query('select nr from pupil where nr='+pupilnr+''):
-                suc=True
+                return True
             else:
-                    suc=False
-        return suc
+                raise ValueError,"Pupilnumber does not exist"
 
     def delete(self,pupilnr):
         if db.check("nr",pupilnr):
             if db.query ('select pnr from ausleihe where pnr='+str(pupilnr)+'')!=():
-                suc=False
+                raise ValueError,"Pupil has borrowed one or more books."
             else:
                 if db.query ('select nr from pupil where nr='+str(pupilnr)+'')!=():
                     db.query ('delete from pupil where nr='+str(pupilnr)+'')
-                    suc=True    
+                    return True   
                 else:
-                    suc=False
-        return suc
+                    raise ValueError,"Invalid Pupilnumber."
 
     def info(self,pupilnr):
         info_dict=db.query('select nr, vor, nach, date_format(geb,"%e.%c.%Y") from pupil where nr='+str(pupilnr)+'')
         if len(info_dict)==0:
-            return [False]
+            raise ValueError,"Pupilnumber does not exist."
 
         return (info_dict)
 class Ausleihe():
@@ -172,7 +170,7 @@ def mach_kurz(nr_lang):
         raise ValueError,"Ungueltige Nummer!"
 
 if "__main__"==__name__:
-     buch=Book()
+     #buch=Book()
      #print buch.create()                                                     #True
      #print buch.create_type("9783596271207" , "DUUUL" , "Allgemeine Chemie" )#True
      #print buch.exist("30")                                                  #True
@@ -184,10 +182,10 @@ if "__main__"==__name__:
 
      schueler=Pupil()
 #    print schueler.create()
-     print schueler.edit("2","Micky","Mouse","1990-5-22")
-#    print schueler.info(15)
-#    print schueler.exist("16")
-#    print schueler.delete("16")
+#    print schueler.edit("2","Micky","Mouse","1990-5-22")
+     print schueler.info(1)
+#    print schueler.exist("19")
+#    print schueler.delete("1")
 #===============================================================================
 
 
