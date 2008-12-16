@@ -86,47 +86,48 @@ class Database():
         else:
             raise TypeError,"You didn't define a valid type to check!"
     def backup(self):
-        wr="""DROP TABLE IF EXISTS `ausleihe`;
-CREATE TABLE IF NOT EXISTS `ausleihe` (
-  `pnr` int(11) NOT NULL,
-  `bnr` int(11) NOT NULL,
-  KEY `pnr` (`pnr`,`bnr`));
-DROP TABLE IF EXISTS `book`;
-CREATE TABLE IF NOT EXISTS `book` (
-  `nr` int(11) NOT NULL auto_increment,
-  `type` int(11) NOT NULL default '0',
-  `druck` tinyint(1) NOT NULL default '0',
-  UNIQUE KEY `nr` (`nr`));
-DROP TABLE IF EXISTS `pupil`;
-CREATE TABLE IF NOT EXISTS `pupil` (
-  `nr` int(11) NOT NULL auto_increment,
-  `vor` text collate utf8_unicode_ci,
-  `nach` text collate utf8_unicode_ci,
-  `geb` date default NULL,
-  PRIMARY KEY  (`nr`));
-DROP TABLE IF EXISTS `type`;
-CREATE TABLE IF NOT EXISTS `type` (
-  `nr` int(11) NOT NULL auto_increment,
-  `isbn` text collate utf8_unicode_ci,
-  `author` text collate utf8_unicode_ci,
-  `title` text collate utf8_unicode_ci,
-  PRIMARY KEY  (`nr`));\n"""
-
+        #TODO: tabellen abfragen und erstellen
+        #wr="""tables blabla...\n"""
+        wr=""
         wr+="INSERT INTO `ausleihe` ( `pnr` , `bnr` ) VALUES\n"
         for data in self.query("SELECT * FROM ausleihe"):
-            wr+="('"+str(data[0])+"','"+str(data[1])+"'),\n"
+            wr+="("
+            for wert in data:
+                if wert==None:
+                    wr+="NULL,"
+                    continue
+                wr+="'"+str(wert)+"',"
+            wr=wr[0:-1]+"),\n"
         wr=wr[0:-2]+";\n"
         wr+="INSERT INTO `book` ( `nr` , `type` , `druck` ) VALUES\n"
         for data2 in self.query("SELECT * FROM book"):
-            wr+="('"+str(data2[0])+"','"+str(data2[1])+"', '"+str(data2[2])+"'),\n"
+            wr+="("
+            for wert in data2:
+                if wert==None:
+                    wr+="NULL,"
+                    continue
+                wr+="'"+str(wert)+"',"
+            wr=wr[0:-1]+"),\n"
         wr=wr[0:-2]+";\n"
         wr+="INSERT INTO `pupil` ( `nr` , `vor` , `nach` , `geb` ) VALUES\n"
         for data3 in self.query("SELECT * FROM pupil"):
-            wr+="('"+str(data3[0])+"','"+str(data3[1])+"','"+str(data3[2])+"','"+str(data3[3])+"'),\n"
+            wr+="("
+            for wert in data3:
+                if wert==None:
+                    wr+="NULL,"
+                    continue
+                wr+="'"+str(wert)+"',"
+            wr=wr[0:-1]+"),\n"
         wr=wr[0:-2]+";\n"
         wr+="INSERT INTO `type` ( `nr` , `isbn` , `author` , `title` ) VALUES\n"
         for data4 in self.query("SELECT * FROM type"):
-            wr+="('"+str(data4[0])+"','"+str(data4[1])+"','"+str(data4[2])+"','"+str(data4[3])+"'),\n"
+            wr+="("
+            for wert in data4:
+                if wert==None:
+                    wr+="NULL,"
+                    continue
+                wr+="'"+str(wert)+"',"
+            wr=wr[0:-1]+"),\n"
         wr=wr[0:-2]+";\n"
         return wr
     def __del__(self):
@@ -137,13 +138,15 @@ CREATE TABLE IF NOT EXISTS `type` (
 
 if __name__=="__main__": ##Debug-Funktion
     db=Database()
-    print db.check("isbn","350710606X") #valid 10
-    print db.check("isbn","9783429019976") #valid 13
-    print db.check("text", "Hallo!") #valid
-    print db.check("date", "1990") #valid
-    print db.check("date", "19900823") #valid
-    print db.check("nr", "123456") #valid
-    print "---"
+#===============================================================================
+#    print db.check("isbn","350710606X") #valid 10
+#    print db.check("isbn","9783429019976") #valid 13
+#    print db.check("text", "Hallo!") #valid
+#    print db.check("date", "1990") #valid
+#    print db.check("date", "19900823") #valid
+#    print db.check("nr", "123456") #valid
+#    print "---"
+#===============================================================================
 #===============================================================================
 #    print db.check("isbn","9999999998") #invalid 10
 #    print db.check("isbn","9999999999999") #invalid 13
@@ -155,9 +158,8 @@ if __name__=="__main__": ##Debug-Funktion
 #    print db.check("else", "murks") #invalid type
 #    print "---"
 #===============================================================================
-#    print db.backup()
 #   print "---"
 #    print db.query("SELECT * from book")
 #   print "---"
     print "Test erfolgreich absolviert."
-    print help(Database)
+#    print help(Database)
