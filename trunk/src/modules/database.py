@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 class Database():
-    '''Klasse Datasbase():
+    '''Klasse Database():
         .query(sqlcode) --> tupel
         .check(type,var) --> bool|raise ##type= | (isbn,text,date,nr)
         .backup() --> str(sqlcode)'''
