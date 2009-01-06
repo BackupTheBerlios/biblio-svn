@@ -11,15 +11,15 @@ class Database():
     def __init__(self):
         try:
             import MySQLdb as mysql
-            self.__con=mysql.connect(host=self.host, user=self.user, passwd=self.pw)
-            self.__cur=self.__con.cursor()
+            self.con=mysql.connect(host=self.host, user=self.user, passwd=self.pw)
+            self.cur=self.con.cursor()
             self.query("USE "+ self.db_name)
         except:
             raise
     def query(self, sqlcode):
         try:
-            self.__cur.execute(sqlcode)
-            return self.__cur.fetchall()
+            self.cur.execute(sqlcode)
+            return self.cur.fetchall()
         except:
             raise
     def check(self, type, var):
@@ -132,7 +132,7 @@ class Database():
         return wr
     def __del__(self):
         try:
-            self.__con.close()
+            self.con.close()
         except:
             raise
 
