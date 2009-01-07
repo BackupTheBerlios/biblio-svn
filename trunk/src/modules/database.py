@@ -89,46 +89,23 @@ class Database():
         #TODO: tabellen abfragen und erstellen
         #wr="""tables blabla...\n"""
         wr=""
-        wr+="INSERT INTO `ausleihe` ( `pnr` , `bnr` ) VALUES\n"
-        for data in self.query("SELECT * FROM ausleihe"):
-            wr+="("
-            for wert in data:
-                if wert==None:
-                    wr+="NULL,"
-                    continue
-                wr+="'"+str(wert)+"',"
-            wr=wr[0:-1]+"),\n"
-        wr=wr[0:-2]+";\n"
-        wr+="INSERT INTO `book` ( `nr` , `type` , `druck` ) VALUES\n"
-        for data2 in self.query("SELECT * FROM book"):
-            wr+="("
-            for wert in data2:
-                if wert==None:
-                    wr+="NULL,"
-                    continue
-                wr+="'"+str(wert)+"',"
-            wr=wr[0:-1]+"),\n"
-        wr=wr[0:-2]+";\n"
-        wr+="INSERT INTO `pupil` ( `nr` , `vor` , `nach` , `geb` ) VALUES\n"
-        for data3 in self.query("SELECT * FROM pupil"):
-            wr+="("
-            for wert in data3:
-                if wert==None:
-                    wr+="NULL,"
-                    continue
-                wr+="'"+str(wert)+"',"
-            wr=wr[0:-1]+"),\n"
-        wr=wr[0:-2]+";\n"
-        wr+="INSERT INTO `type` ( `nr` , `isbn` , `author` , `title` ) VALUES\n"
-        for data4 in self.query("SELECT * FROM type"):
-            wr+="("
-            for wert in data4:
-                if wert==None:
-                    wr+="NULL,"
-                    continue
-                wr+="'"+str(wert)+"',"
-            wr=wr[0:-1]+"),\n"
-        wr=wr[0:-2]+";\n"
+        for table in db.query("SHOW TABLES"):
+            wr+="INSERT INTO `"+table[0]+"` ("
+            for field in db.query("DESCRIBE "+table[0]):
+                wr+="'"+field[0]+"',"
+            else:
+                wr=wr[0:-1]+") VALUES\n"
+            for data in self.query("SELECT * FROM "+table[0]):
+                wr+="("
+                for wert in data:
+                    if wert==None:
+                        wr+="NULL,"
+                        continue
+                    wr+="'"+str(wert)+"',"
+                else:
+                    wr=wr[0:-1]+"),\n"
+            else:
+                wr=wr[0:-2]+";\n"
         return wr
     def __del__(self):
         try:
@@ -138,6 +115,7 @@ class Database():
 
 if __name__=="__main__": ##Debug-Funktion
     db=Database()
+    print db.backup()
 #===============================================================================
 #    print db.check("isbn","350710606X") #valid 10
 #    print db.check("isbn","9783429019976") #valid 13
