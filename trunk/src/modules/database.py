@@ -86,13 +86,23 @@ class Database():
         else:
             raise TypeError,"You didn't define a valid type to check!"
     def backup(self):
-        #TODO: tabellen abfragen und erstellen
-        #wr="""tables blabla...\n"""
         wr=""
         for table in db.query("SHOW TABLES"):
-            wr+="INSERT INTO `"+table[0]+"` ("
+            wr+="DROP TABLE IF EXISTS `"+table[0]+"`;"
+            wr+="CREATE TABLE IF NOT EXISTS `"+table[0]+"`("
             for field in db.query("DESCRIBE "+table[0]):
-                wr+="'"+field[0]+"',"
+                wr+="`"+field[0]+"` "+field[1]+" "
+                if field[2]=="NO":
+                    wr+="NOT NULL "
+                wr+=field[5]+","
+            else:
+                #wr=wr[0:-2]+");\n"
+                #TODO: Keys fixen
+                key=self.query("DESCRIBE "+table[0])[0][0]
+                wr+="KEY `"+key+"` (`"+key+"`));\n"
+            wr+="INSERT INTO `"+table[0]+"` ("
+            for field in self.query("DESCRIBE "+table[0]):
+                wr+="`"+field[0]+"`,"
             else:
                 wr=wr[0:-1]+") VALUES\n"
             for data in self.query("SELECT * FROM "+table[0]):
@@ -117,27 +127,27 @@ if __name__=="__main__": ##Debug-Funktion
     db=Database()
     print db.backup()
 #===============================================================================
-#    print db.check("isbn","350710606X") #valid 10
-#    print db.check("isbn","9783429019976") #valid 13
-#    print db.check("text", "Hallo!") #valid
-#    print db.check("date", "1990") #valid
-#    print db.check("date", "19900823") #valid
-#    print db.check("nr", "123456") #valid
+#    print self.check("isbn","350710606X") #valid 10
+#    print self.check("isbn","9783429019976") #valid 13
+#    print self.check("text", "Hallo!") #valid
+#    print self.check("date", "1990") #valid
+#    print self.check("date", "19900823") #valid
+#    print self.check("nr", "123456") #valid
 #    print "---"
 #===============================================================================
 #===============================================================================
-#    print db.check("isbn","9999999998") #invalid 10
-#    print db.check("isbn","9999999999999") #invalid 13
-#    print db.check("isbn","333") #invalid length
-#    print db.check("text", "el';)delete * from books") #invalid
-#   print db.check("date", "3500") #invalid
-#    print db.check("date", "19900231") #invalid
-#    print db.check("nr", "abc") #invalid
-#    print db.check("else", "murks") #invalid type
+#    print self.check("isbn","9999999998") #invalid 10
+#    print self.check("isbn","9999999999999") #invalid 13
+#    print self.check("isbn","333") #invalid length
+#    print self.check("text", "el';)delete * from books") #invalid
+#   print self.check("date", "3500") #invalid
+#    print self.check("date", "19900231") #invalid
+#    print self.check("nr", "abc") #invalid
+#    print self.check("else", "murks") #invalid type
 #    print "---"
 #===============================================================================
 #   print "---"
-#    print db.query("SELECT * from book")
+#    print self.query("SELECT * from book")
 #   print "---"
     print "Test erfolgreich absolviert."
 #    print help(Database)
