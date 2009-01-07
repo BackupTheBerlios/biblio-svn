@@ -7,10 +7,10 @@ class Pupil():
         pupilnr=db.query('select max(nr) from pupil')
         return pupilnr [0][0]
 
-    def edit(self,nr,vorname,nachname,geburtsdatum):
-        if(db.check("nr",nr) and db.check("text",vorname) and db.check("text",nachname) and db.check("text",geburtsdatum)):
+    def edit(self,nr,vorname,nachname,geburtsdatum,jahrgang):
+        if(db.check("nr",nr) and db.check("text",vorname) and db.check("text",nachname) and db.check("text",geburtsdatum) and db.check("text",jahrgang)):
             if db.query('select nr from pupil where nr='+nr+'')!=():
-                db.query('update pupil SET vor="'+vorname+'",nach="'+nachname+'",geb="'+geburtsdatum+'" where nr='+nr+'')
+                db.query('update pupil SET vor="'+vorname+'",nach="'+nachname+'",geb="'+geburtsdatum+'", jahrgang='+jahrgang+' where nr='+nr+'')
                 return True
             else:
                 raise ValueError,"Invalid Input or Pupilnumber doesn't exist"
@@ -34,7 +34,7 @@ class Pupil():
                     raise ValueError,"Invalid Pupilnumber."
 
     def info(self,pupilnr):
-        info_dict=db.query('select nr, vor, nach, date_format(geb,"%e.%c.%Y") from pupil where nr='+str(pupilnr)+'')
+        info_dict=db.query('select nr, vor, nach, date_format(geb,"%e.%c.%Y"),jahrgang from pupil where nr='+str(pupilnr)+'')
         if len(info_dict)==0:
             raise ValueError,"Pupilnumber does not exist."
 
@@ -49,7 +49,7 @@ if "__main__"==__name__:
 #    schueler=Pupil()
 #    print schueler.exist('11')
 #    print schueler.create()
-#    print schueler.edit("14","Micky","Mouse","1990-5-22")
+#    print schueler.edit("20","Micky","Mouse","1990-5-22","12")
 #    print schueler.info(11)[0]
 #    print schueler.delete('2')
 #===============================================================================
