@@ -28,6 +28,7 @@ def content():
 
 def wiederherstellen(FileName):
     #TODO: öffnen, in db schreiben
+    return html
 
 def speichern():
     #TODO: kommentar, ok, speichern, timestamp
