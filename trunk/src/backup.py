@@ -1,9 +1,8 @@
 ##Timos und Roberts Backup-Modul
 
 def content():
-    import modules.database
-    db=modules.database.Database()
-    print db.backup()
+    p="hello world!"
+    return str(p)
 ##
 ##TODO:Grundprinzip
 
