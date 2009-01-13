@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #Wiederherstellen
 #Speichern
 #Tabellenzeichenfunktion
@@ -23,7 +24,7 @@
 
 
 def content():
-    p="hello world!"
+    p="hello&uuml; world!"
     return str(p)
 
 def wiederherstellen(FileName):
@@ -39,3 +40,4 @@ def uebersicht():
     return html
 
 if __name__=="__main__":
+    print content()
