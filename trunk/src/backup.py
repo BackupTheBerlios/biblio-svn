@@ -1,11 +1,3 @@
-##Timos und Roberts Backup-Modul
-
-def content():
-    p="hello world!"
-    return str(p)
-##
-##TODO:Grundprinzip
-
 #Wiederherstellen
 #Speichern
 #Tabellenzeichenfunktion
@@ -30,5 +22,19 @@ def content():
 
 
 
+def content():
+    p="hello world!"
+    return str(p)
 
+def wiederherstellen(FileName):
+    #TODO: öffnen, in db schreiben
 
+def speichern():
+    #TODO: kommentar, ok, speichern, timestamp
+    return FileName
+
+def uebersicht():
+    #TODO: wiederherstellen,kommentar anzeigen, löschen für Admin
+    return html
+
+if __name__=="__main__":
