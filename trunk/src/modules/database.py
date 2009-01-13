@@ -87,10 +87,10 @@ class Database():
             raise TypeError,"You didn't define a valid type to check!"
     def backup(self):
         wr=""
-        for table in db.query("SHOW TABLES"):
+        for table in self.query("SHOW TABLES"):
             wr+="DROP TABLE IF EXISTS `"+table[0]+"`;"
             wr+="CREATE TABLE IF NOT EXISTS `"+table[0]+"`("
-            for field in db.query("DESCRIBE "+table[0]):
+            for field in self.query("DESCRIBE "+table[0]):
                 wr+="`"+field[0]+"` "+field[1]+" "
                 if field[2]=="NO":
                     wr+="NOT NULL "
