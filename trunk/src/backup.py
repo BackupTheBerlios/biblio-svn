@@ -20,7 +20,7 @@
 # # Kommentar hier...
 # Inhalt
 #===============================================================================
-pfad="../"
+pfad="../backups/"
 
 def content():
     p="helloü world!<br />"
@@ -35,18 +35,30 @@ def wiederherstellen(FileName):
 
 def speichern():
     #TODO: kommentar, ok, speichern, timestamp
-    return FileName
+    return html
+
+def delete(FileName):
+    #TODO: Backup löschen...
+    return html
 
 def uebersicht():
     import table
     html=""
     t=table.html_table("Nr.","Kommentar","Datum","Wiederherstellen","Löschen")
-    #TODO: Dateien abfragen
 
-    f=("1231917163.sql","1231571563.sql")
-    #TODO: Kommentare auslesen
-    k=("komm1","komm2")
+    #Dateien abfragen
+    import os
+    f=os.listdir(pfad)
+    f.sort()
 
+    #Kommentare auslesen
+    k=[]
+    for fs in f:
+        fl=file(pfad+fs, 'r')
+        k.append(fl.readline()[1:])
+        fl.close()
+
+    #Tabelle mit Daten füllen
     i=0
     for i in range(len(f)):
         line=[]
@@ -58,14 +70,26 @@ def uebersicht():
 
         #Datum
         from datetime import date
-        datum=date.fromtimestamp(float(f[i][0:-4])).strftime("%d.%m.%Y")
+        datum=date.fromtimestamp(float(f[i][:-4])).strftime("%d.%m.%Y")
 
+        #Adminrechte?
+        import Cookie, os, database
+        db=database.Database()
+        c=Cookie.SimpleCookie()
+        c.load(os.environ['HTTP_COOKIE'])
+        bn=c['Benutzername'].value
+        rights=db.query('SELECT Backend FROM benutzer WHERE Benutzername="'+bn+'"')[0][0]
+        del(db)
         #TODO: Wiederherstellenbutton für Admin einbauen
-        #Wiederherstellen
-        wbutton="..."
+        #Wiederherstellen / Löschen
+        if rights==1:
+            wbutton="Admin!"
+            lbutton="Admin!"
+        else:
+            wbutton="..."
+            lbutton="..."
 
-        #TODO: Löschenbutton für Admin
-        lbutton=".x."
+
 
         t.createLine(nr,kom,datum,wbutton,lbutton)
     html+=t.returnTable()
