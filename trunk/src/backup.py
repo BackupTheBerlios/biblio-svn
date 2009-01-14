@@ -40,12 +40,11 @@ def content():
         p+=uebersicht()
     return str(p)
 
-def wiederherstellen(FN):
+def wiederherstellen(FileName):
     import table, database
 
     db = database.Database()
-
-    fl=file(pfad+FN, 'r')
+    fl=file(pfad+FileName, 'r')
     fl.close()
 
     db.query(read = fl.read())
