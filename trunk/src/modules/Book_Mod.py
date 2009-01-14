@@ -15,7 +15,6 @@ class Book():
                 db.query ('insert into type values (Null,"'+isbn+'", "'+author+'", "'+title+'", "'+fachbereich+'", "'+mittelstufe+'")')
                 return db.query('SELECT nr from type WHERE isbn="'+isbn+'"')[0][0]
 
-
     def edit(self,nr,isbn,author,title,fachbereich,mittelstufe):
         if(db.check ("isbn",isbn) and db.check("text",author) and db.check("text",title) and db.check("text",fachbereich)and db.check ("nr",mittelstufe)):
             if self.type_exist(nr):
@@ -31,14 +30,12 @@ class Book():
             else:
                 raise ValueError,"Number doesn't exist"
 
-
     def exist(self,booknr):
         if db.check("nr",booknr):
             if db.query('select nr from book where nr='+booknr+''):
                 return True
             else:
                 raise ValueError,"Number doesn't exist"
-
 
     def book_type_connect(self,booknr,typenr):
         if db.check("nr",booknr) and db.check("nr",typenr):
@@ -55,7 +52,6 @@ class Book():
                 return True
             except: raise ValueError,"Error in Delete"
 
-
     def info(self,booknr):
         info_dict=db.query('SELECT t.isbn, t.author, t.title t.fachbereich t.mittelstufe FROM TYPE AS t, book AS b WHERE (b.nr = "'+str(booknr)+'" AND b.type = t.nr)')
         return (info_dict[0])
@@ -63,9 +59,8 @@ class Book():
     def type_info(self,nr):
         if db.check("nr",nr):
             info_dict=db.query('Select isbn, author, title, fachbereich, mittelstufe from type where nr="'+str(nr)+'"')
-
             try: return (info_dict[0])
-            except: return False
+            except: raise ValueError,"Number not found"
 
 
 
@@ -79,7 +74,7 @@ if "__main__"==__name__:
      #print buch.exist("99")
      #print buch.info("23")
      #print buch.delete("9")
-     #print buch.type_info("16")
+     #print buch.type_info("1006")
      #for i in range (30):
      #print buch.book_type_connect(str(i+1),"3")
      #print buch.book_type_connect ("33","16")
