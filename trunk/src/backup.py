@@ -20,9 +20,11 @@
 # # Kommentar hier...
 # Inhalt
 #===============================================================================
+pfad="../"
 
 def content():
-    p="hello&uuml; world!"
+    p="helloü world!<br />"
+    p+=uebersicht()
     return str(p)
 
 def wiederherstellen(FileName):
@@ -36,9 +38,10 @@ def speichern():
 def uebersicht():
     import table
     html=""
-    t=table.html_table("Nr.","Kommentar","Datum","Wiederherstellen","L&ouml;schen")
+    t=table.html_table("Nr.","Kommentar","Datum","Wiederherstellen","Löschen")
     #TODO: Dateien abfragen
-    f=("file1","file2")
+
+    f=("1231917163.sql","1231571563.sql")
     #TODO: Kommentare auslesen
     k=("komm1","komm2")
 
@@ -46,16 +49,16 @@ def uebersicht():
     for i in range(len(f)):
         line=[]
         #Nr
-        nr=str(i)
+        nr=str(i+1)
 
         #Kommentar
         kom=k[i]
 
-        #TODO: Datum aus timestamp erstellen
         #Datum
-        datum=f[i]
+        from datetime import date
+        datum=date.fromtimestamp(float(f[i][0:-4])).strftime("%d.%m.%Y")
 
-        #TODO: Wiederherstellenbutton einbauen
+        #TODO: Wiederherstellenbutton für Admin einbauen
         #Wiederherstellen
         wbutton="..."
 
