@@ -41,7 +41,7 @@ def content():
     return str(p)
 
 def wiederherstellen(FileName):
-    import table, database
+    import table, database, html
 
     db = database.Database()
     fl=file(pfad+FileName, 'r')
