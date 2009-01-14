@@ -28,7 +28,9 @@ def content():
     return str(p)
 
 def wiederherstellen(FileName):
-    #TODO: öffnen, in db schreiben
+    import table
+    #TODO: öffnen
+    #TODO: in db schreiben
     return html
 
 def speichern():
