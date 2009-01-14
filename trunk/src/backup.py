@@ -26,17 +26,16 @@ def content():
     import html,cgi
     p=""
 
-    p+=html.headline('Backup-Verzeichnis').rtn()
-
     form=cgi.FieldStorage()
     if ('act' in form.keys()) and ('ts' in form.keys()):
         if form['act'].value=="wh":
             wiederherstellen(form['ts'].value)
         elif form['act'].value=="del":
-            delete(form['ts'].value)
+            p=delete(form['ts'].value+".sql")
         elif form['act'].value=="sp":
             speichern()
     else:
+        p+=html.headline('Backup-Verzeichnis').rtn()
         p+=uebersicht()
     return str(p)
 
@@ -57,8 +56,15 @@ def speichern():
     return html
 
 def delete(FileName):
-    #TODO: Backup löschen...
-    return html
+    import html,os
+
+    if os.path.isfile(pfad+FileName)==True:
+        os.remove(pfad+FileName)
+        h=html.message("Backup erfolgreich gelöscht!","Zurück","./init.py?mn=backup",2).rtn()
+    else:
+        h=html.message("Backup existiert nicht...","Zurück","./init.py?mn=backup",1).rtn()
+
+    return h
 
 def uebersicht():
     import html
@@ -102,8 +108,8 @@ def uebersicht():
         #TODO: Wiederherstellenbutton für Admin einbauen
         #Wiederherstellen / Löschen
         if rights==1:
-            wbutton='''<a href="init.py?mn=backup&act=wh&ts='''+f[i][:-4]+'''">Admin!</a>'''
-            lbutton='''<a href="init.py?mn=backup&act=del&ts='''+f[i][:-4]+'''">Admin!</a>'''
+            wbutton='''<a href="./init.py?mn=backup&act=wh&ts='''+f[i][:-4]+'''">Admin!</a>'''
+            lbutton='''<a href="./init.py?mn=backup&act=del&ts='''+f[i][:-4]+'''">Admin!</a>'''
         else:
             wbutton="..."
             lbutton="..."
