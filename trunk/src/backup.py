@@ -40,8 +40,16 @@ def content():
         p+=uebersicht()
     return str(p)
 
-def wiederherstellen(FileName):
-    import table
+def wiederherstellen(FN):
+    import table, database
+
+    db = database.Database()
+
+    fl=file(pfad+FN, 'r')
+    read = fl.read()
+    fl.close()
+
+    db.query(read)
     #TODO: öffnen
     #TODO: in db schreiben
     return html
