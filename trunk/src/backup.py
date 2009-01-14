@@ -46,10 +46,9 @@ def wiederherstellen(FN):
     db = database.Database()
 
     fl=file(pfad+FN, 'r')
-    read = fl.read()
     fl.close()
 
-    db.query(read)
+    db.query(read = fl.read())
     #TODO: öffnen
     #TODO: in db schreiben
     return html
