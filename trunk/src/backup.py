@@ -23,8 +23,21 @@
 pfad="../backups/"
 
 def content():
-    p="helloü world!<br />"
-    p+=uebersicht()
+    import html,cgi
+    p=""
+
+    p+=html.headline('Backup-Verzeichnis').rtn()
+
+    form=cgi.FieldStorage()
+    if ('act' in form.keys()) and ('ts' in form.keys()):
+        if form['act'].value=="wh":
+            wiederherstellen(form['ts'].value)
+        elif form['act'].value=="del":
+            delete(form['ts'].value)
+        elif form['act'].value=="sp":
+            speichern()
+    else:
+        p+=uebersicht()
     return str(p)
 
 def wiederherstellen(FileName):
@@ -42,9 +55,9 @@ def delete(FileName):
     return html
 
 def uebersicht():
-    import table
-    html=""
-    t=table.html_table("Nr.","Kommentar","Datum","Wiederherstellen","Löschen")
+    import html
+    h=""
+    t=html.table("Nr.","Kommentar","Datum","Wiederherstellen","Löschen")
 
     #Dateien abfragen
     import os
@@ -83,17 +96,16 @@ def uebersicht():
         #TODO: Wiederherstellenbutton für Admin einbauen
         #Wiederherstellen / Löschen
         if rights==1:
-            wbutton="Admin!"
-            lbutton="Admin!"
+            wbutton='''<a href="init.py?mn=backup&act=wh&ts='''+f[i][:-4]+'''">Admin!</a>'''
+            lbutton='''<a href="init.py?mn=backup&act=del&ts='''+f[i][:-4]+'''">Admin!</a>'''
         else:
             wbutton="..."
             lbutton="..."
 
-
-
         t.createLine(nr,kom,datum,wbutton,lbutton)
-    html+=t.returnTable()
-    return html
+    h+=t.rtn()
+    h+=html.paragraph('''<div align="right"><a href="init.py?mn=backup?act=sp">Neues Backup erstellen...</a></div>''').rtn()
+    return h
 
 if __name__=="__main__":
     print uebersicht()
