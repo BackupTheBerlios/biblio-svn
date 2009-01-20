@@ -48,6 +48,10 @@ def wiederherstellen(FileName):
 
     db.query(fl.read())
     htm=""
+    if os.path.isfile(pfad+FileName)==True:
+        htm+=html.message("Backup wiederhergestellt!","zurück","./init.py?mn=backup",2).rtn()
+    else:
+        htm+=html.message("Backup nicht vorhanden!","zurück","./init.py?mn=backup",1)
     return htm
 
 def speichern():
