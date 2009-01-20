@@ -40,7 +40,8 @@ def content():
     return str(p)
 
 def wiederherstellen(FileName):
-    import database, html
+    import modules.database as database
+    import html
 
     db = database.Database()
     fl=file(pfad+FileName, 'r')
@@ -123,4 +124,4 @@ def uebersicht():
     return h
 
 if __name__=="__main__":
-    print wiedeherstellen()
+    print wiederherstellen()
