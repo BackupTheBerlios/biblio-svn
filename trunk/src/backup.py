@@ -40,16 +40,15 @@ def content():
     return str(p)
 
 def wiederherstellen(FileName):
-    import table, database, html
+    import database, html
 
     db = database.Database()
     fl=file(pfad+FileName, 'r')
     fl.close()
 
-    db.query(read = fl.read())
-    #TODO: öffnen
-    #TODO: in db schreiben
-    return html
+    db.query(fl.read())
+    htm=""
+    return htm
 
 def speichern():
     #TODO: kommentar, ok, speichern, timestamp
@@ -105,7 +104,7 @@ def uebersicht():
         bn=c['Benutzername'].value
         rights=db.query('SELECT Backend FROM benutzer WHERE Benutzername="'+bn+'"')[0][0]
         del(db)
-        #TODO: Wiederherstellenbutton für Admin einbauen
+
         #Wiederherstellen / Löschen
         if rights==1:
             wbutton='''<a href="./init.py?mn=backup&act=wh&ts='''+f[i][:-4]+'''">Admin!</a>'''
