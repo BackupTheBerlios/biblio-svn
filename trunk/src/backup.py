@@ -33,7 +33,7 @@ def content():
         elif form['act'].value=="del":
             p=delete(form['ts'].value+".sql")
         elif form['act'].value=="sp":
-            speichern()
+            speichern(form['ts'].value)
     else:
         p+=html.headline('Backup-Verzeichnis').rtn()
         p+=uebersicht()
@@ -55,9 +55,29 @@ def wiederherstellen(FileName):
         htm+=html.message("Backup nicht vorhanden!","zurück","./init.py?mn=backup",1)
     return htm
 
-def speichern():
+def speichern(timestamp):
     #TODO: kommentar, ok, speichern, timestamp
-    return html
+    import html,cgi
+    htm=""
+    form=cgi.FieldStorage()
+
+    if ('conf' in form.keys()):
+        #TODO: Bestätigungsnachricht
+        htm+="Success..."
+    else:
+        htm+=html.headline("Neues Backup erstellen...").rtn()
+        htm+=html.paragraph("Bitte geben Sie ggf. einen kurzen Kommentar ein und drücken dann auf Speichern.").rtn()
+        #TODO: Formular erstellen.
+        htm+='''<form action="./init.py?mn=backup&act=sp" method="get">
+        <input name="ts" type="hidden" name="ts" value="'''+timestamp+'''" />
+        <p>Kommentar: <input name="kom" type="text" maxlength="50" /></p>
+        <p>
+        <input type="submit" value="Speichern" />
+        <input type="button" name="abort" value="Abbrechen" onclick="window.navigate("./init.py?mn=backup")" />
+        </p>
+        </form>'''
+
+    return htm
 
 def delete(FileName):
     import html,os
@@ -120,7 +140,8 @@ def uebersicht():
 
         t.createLine(nr,kom,datum,wbutton,lbutton)
     h+=t.rtn()
-    h+=html.paragraph('''<div align="right"><a href="init.py?mn=backup?act=sp">Neues Backup erstellen...</a></div>''').rtn()
+    import time
+    h+=html.paragraph('''<div align="right"><a href="init.py?mn=backup&act=sp&ts='''+str(int(time.time()))+'''">Neues Backup erstellen...</a></div>''').rtn()
     return h
 
 if __name__=="__main__":
