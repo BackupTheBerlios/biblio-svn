@@ -81,12 +81,12 @@ def speichern(timestamp):
     else:
         #Erster Schritt mit Abfrage
         htm+=html.headline("Neues Backup erstellen...").rtn()
-        htm+=html.paragraph("Bitte geben Sie ggf. einen kurzen Kommentar ein und dr&uuml;cken Sie dann auf Speichern.").rtn()
+        htm+=html.paragraph("Bitte geben Sie ggf. einen kurzen Kommentar (max. 30 Zeichen) ein und dr&uuml;cken Sie dann auf Speichern.").rtn()
         htm+='''<form action="./init.py?mn=backup&act=sp" method="get">
         <input type="hidden" name="mn" value="backup" />
         <input type="hidden" name="act" value="sp" />
         <input name="ts" type="hidden" value="'''+timestamp+'''" />
-        <p>Kommentar: <input name="kom" type="text" maxlength="50" /></p>
+        <p>Kommentar: <input name="kom" type="text" maxlength="30" /></p>
         <p>
         <input type="hidden" name="conf" value="1" />
         <input type="submit" value="Speichern" />

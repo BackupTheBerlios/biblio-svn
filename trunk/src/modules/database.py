@@ -94,17 +94,22 @@ class Database():
                 wr+="`"+field[0]+"` "+field[1]+" "
                 if field[2]=="NO":
                     wr+="NOT NULL "
-                wr+=field[5]+","
+                if field[5]!="":
+                    wr+=field[5]+" PRIMARY KEY"
+                wr+=","
             else:
-                #wr=wr[0:-2]+");\n"
-                #TODO: Keys fixen
-                key=self.query("DESCRIBE "+table[0])[0][0]
-                wr+="KEY `"+key+"` (`"+key+"`));\n"
+                wr=wr[0:-2]+");\n"
             wr+="INSERT INTO `"+table[0]+"` ("
             for field in self.query("DESCRIBE "+table[0]):
                 wr+="`"+field[0]+"`,"
             else:
                 wr=wr[0:-1]+") VALUES\n"
+                if self.query("SELECT * FROM "+table[0])==():
+                    wr+="("
+                    for field in self.query("DESCRIBE "+table[0]):
+                        wr+="'',"
+                    else:
+                        wr=wr[:-1]+"),\n"
             for data in self.query("SELECT * FROM "+table[0]):
                 wr+="("
                 for wert in data:
