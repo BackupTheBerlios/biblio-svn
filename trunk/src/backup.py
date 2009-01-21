@@ -22,6 +22,8 @@
 # Inhalt
 #===============================================================================
 pfad="../backups/"
+adm_user="root"
+adm_pw=""
 
 def content():
     import html,cgi
@@ -50,6 +52,9 @@ def wiederherstellen(FileName):
         try:
             fl=file(pfad+FileName, 'r')
             db = database.Database()
+            db.user=adm_user
+            db.pw=adm_pw
+            db.__init__()
             db.query(fl.read())
             fl.close()
             htm+=html.message("Backup wiederhergestellt!","zur&uuml;ck","./init.py?mn=backup",2).rtn()
@@ -164,9 +169,11 @@ def uebersicht():
 
 if __name__=="__main__":
     #Backup bei Einzelaufruf
-    import database
-    db=database.Database()
-    fl=open(pfad+timestamp+".sql",'w')
-    f="#"+form['kom'].value+"\n"+db.backup()
-    fl.write(f)
-    fl.close
+#===============================================================================
+#    import database
+#    db=database.Database()
+#    fl=open(pfad+timestamp+".sql",'w')
+#    f="#"+form['kom'].value+"\n"+db.backup()
+#    fl.write(f)
+#    fl.close
+#===============================================================================
