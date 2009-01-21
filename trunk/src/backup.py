@@ -168,7 +168,9 @@ def uebersicht():
     return h
 
 if __name__=="__main__":
-    #Backup bei Einzelaufruf
+    print "main!"
+    #TODO: Automatisches Backup
+#Backup bei Einzelaufruf
 #===============================================================================
 #    import database
 #    db=database.Database()
