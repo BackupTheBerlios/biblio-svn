@@ -30,7 +30,7 @@ def content():
     form=cgi.FieldStorage()
     if ('act' in form.keys()) and ('ts' in form.keys()):
         if form['act'].value=="wh":
-            p+=wiederherstellen(form['ts'].value)
+            p+=wiederherstellen(form['ts'].value+".sql")
         elif form['act'].value=="del":
             p+=delete(form['ts'].value+".sql")
         elif form['act'].value=="sp":
@@ -41,22 +41,22 @@ def content():
     return str(p)
 
 def wiederherstellen(FileName):
-    import database, html
+    import database, html, os
     htm=""
 
     #Datei vorhanden?
     if os.path.isfile(pfad+FileName)==True:
-        db = database.Database()
-        fl=file(pfad+FileName, 'r')
-        fl.close()
         #Versuch, das Backup einzuspielen
         try:
+            fl=file(pfad+FileName, 'r')
+            db = database.Database()
             db.query(fl.read())
-            htm+=html.message("Backup wiederhergestellt!","zurück","./init.py?mn=backup",2).rtn()
+            fl.close()
+            htm+=html.message("Backup wiederhergestellt!","zur&uuml;ck","./init.py?mn=backup",2).rtn()
         except:
-            htm+=html.message("Backup fehlerhaft!","zurück","./init.py?mn=backup",1)
+            htm+=html.message("Backup fehlerhaft!","zur&uuml;ck","./init.py?mn=backup",1).rtn()
     else:
-        htm+=html.message("Backup nicht vorhanden!","zurück","./init.py?mn=backup",1)
+        htm+=html.message("Backup nicht vorhanden!","zur&uuml;ck","./init.py?mn=backup",1).rtn()
 
     return htm
 
@@ -73,11 +73,11 @@ def speichern(timestamp):
         f="#"+form['kom'].value+"\n"+db.backup()
         fl.write(f)
         fl.close
-        htm+=html.message("Backup erstellt","Zurück","./init.py?mn=backup",2).rtn()
+        htm+=html.message("Backup erstellt","Zur&uuml;ck","./init.py?mn=backup",2).rtn()
     else:
         #Erster Schritt mit Abfrage
         htm+=html.headline("Neues Backup erstellen...").rtn()
-        htm+=html.paragraph("Bitte geben Sie ggf. einen kurzen Kommentar ein und drücken Sie dann auf Speichern.").rtn()
+        htm+=html.paragraph("Bitte geben Sie ggf. einen kurzen Kommentar ein und dr&uuml;cken Sie dann auf Speichern.").rtn()
         htm+='''<form action="./init.py?mn=backup&act=sp" method="get">
         <input type="hidden" name="mn" value="backup" />
         <input type="hidden" name="act" value="sp" />
@@ -98,16 +98,16 @@ def delete(FileName):
     #Abfrage ob Datei existiert
     if os.path.isfile(pfad+FileName)==True:
         os.remove(pfad+FileName)
-        h=html.message("Backup erfolgreich gelöscht!","Zurück","./init.py?mn=backup",2).rtn()
+        h=html.message("Backup erfolgreich gel&ouml;scht!","Zur&uuml;ck","./init.py?mn=backup",2).rtn()
     else:
-        h=html.message("Backup existiert nicht...","Zurück","./init.py?mn=backup",1).rtn()
+        h=html.message("Backup existiert nicht...","Zur&uuml;ck","./init.py?mn=backup",1).rtn()
 
     return h
 
 def uebersicht():
     import html
     h=""
-    t=html.table("Nr.","Kommentar","Datum","Wiederherstellen","Löschen")
+    t=html.table("Nr.","Kommentar","Datum","Wiederherstellen","L&ouml;schen")
 
     #Dateien abfragen
     import os
@@ -121,7 +121,7 @@ def uebersicht():
         k.append(fl.readline()[1:])
         fl.close()
 
-    #Tabelle mit Daten füllen
+    #Tabelle mit Daten f&uuml;llen
     i=0
     for i in range(len(f)):
         line=[]
@@ -144,7 +144,7 @@ def uebersicht():
         rights=db.query('SELECT Backend FROM benutzer WHERE Benutzername="'+bn+'"')[0][0]
         del(db)
 
-        #Wiederherstellen / Löschen
+        #Wiederherstellen / L&ouml;schen
         if rights==1:
             wbutton='''<a href="./init.py?mn=backup&act=wh&ts='''+f[i][:-4]+'''">Admin!</a>'''
             lbutton='''<a href="./init.py?mn=backup&act=del&ts='''+f[i][:-4]+'''">Admin!</a>'''
