@@ -70,7 +70,11 @@ def speichern(timestamp):
         import database
         db=database.Database()
         fl=open(pfad+timestamp+".sql",'w')
-        f="#"+form['kom'].value+"\n"+db.backup()
+        try:
+            kom=form['kom'].value
+        except:
+            kom=""
+        f="#"+kom+"\n"+db.backup()
         fl.write(f)
         fl.close
         htm+=html.message("Backup erstellt","Zur&uuml;ck","./init.py?mn=backup",2).rtn()
