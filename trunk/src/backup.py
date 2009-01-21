@@ -1,4 +1,5 @@
-# -*- coding: utf-8 -*-
+#!C:/Python25/python.exe
+# -*- coding: cp1252 -*-
 #Wiederherstellen
 #Speichern
 #Tabellenzeichenfunktion
