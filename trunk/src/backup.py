@@ -169,13 +169,11 @@ def uebersicht():
 
 if __name__=="__main__":
     print "main!"
-    #TODO: Automatisches Backup
-#Backup bei Einzelaufruf
-#===============================================================================
-#    import database
-#    db=database.Database()
-#    fl=open(pfad+timestamp+".sql",'w')
-#    f="#"+form['kom'].value+"\n"+db.backup()
-#    fl.write(f)
-#    fl.close
-#===============================================================================
+    #Backup bei Einzelaufruf
+    import database, time
+    db=database.Database()
+    fl=open(pfad+str(int(time.time()))+".sql",'w')
+    f="#Automatisches Backup vom "+time.strftime("%d.%m.%Y")+"\n"+db.backup()
+    fl.write(f)
+    fl.close
+
