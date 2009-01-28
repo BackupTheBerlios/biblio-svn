@@ -14,24 +14,36 @@ def content():
     htm=""
 
     htm+="""<table><tr>
-    <td>Ausleihe</td>
-    <td>Rückgabe</td>
-    <td>Manuelle Ausleihe</td>
-    <td>Manuelle Rückgabe</td>
+    <td><a href="./init.py?mn=lent&act=aus">Ausleihe</a></td>
+    <td><a href="./init.py?mn=lent&act=rueck">Rückgabe</a></td>
+    <td><a href="./init.py?mn=lent&act=manaus">Manuelle Ausleihe</a></td>
+    <td><a href="./init.py?mn=lent&act=manrueck">Manuelle Rückgabe</a></td>
     </tr></table>"""
     if 'act' in form.keys():
         if form['act'].value == "manrueck":
-            htm.replace("<td>Manuelle Rückgabe</td>","...")
-            htm+=manrueck(form['bn'])
+            htm.replace('<td><a href="./init.py?mn=lent&act=manrueck">Manuelle Rückgabe</a></td>',"...")
+            if 'bn' in form.keys():
+                htm+=manrueck(form['bn'])
+            else:
+                htm+=manrueck("")
         elif form['act'].value == "manaus":
-            htm.replace("<td>Manuelle Ausleihe</td>","...")
-            htm+=manaus(form['ln'],form['bn'])
+            htm.replace('<td><a href="./init.py?mn=lent&act=manaus">Manuelle Ausleihe</a></td>',"...")
+            if 'bn' and 'ln' in form.keys():
+                htm+=manaus(form['ln'],form['bn'])
+            else:
+                htm+=manaus("","")
         elif form['act'].value == "aus":
-            htm.replace("<td>Ausleihe</td>","...")
-            htm+=aus(form['ln'],form['bn'])
+            htm.replace('<td><a href="./init.py?mn=lent&act=aus">Ausleihe</a></td>',"...")
+            if 'bn' and 'ln' in form.keys():
+                htm+=aus(form['ln'],form['bn'])
+            else:
+                htm+=aus("","")
         elif form['act'].value == "rueck":
-            htm.replace("<td>Rückgabe</td>","...")
-            htm+=rueck(form['bn'])
+            htm.replace('<td><a href="./init.py?mn=lent&act=rueck">Rückgabe</a></td>',"...")
+            if 'bn' in form.keys():
+                htm+=rueck(form['bn'])
+            else:
+                htm+=rueck("")
         else:
             htm+=html.message("Ungültiger Modus!","Leider gab es einen Fehler beim Aufruf...",0).rtn()
     else:
@@ -48,10 +60,13 @@ def manrueck(buchnummer):
 
 
 def manaus(lesernummer,buchnummer):
+    htm=""
     return htm
 
 def aus(lesernummer,buchnummer):
+    htm=""
     return htm
 
 def rueck(buchnummer):
+    htm=""
     return htm
