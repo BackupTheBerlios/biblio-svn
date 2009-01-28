@@ -40,7 +40,12 @@ def content():
     return htm
 
 def manrueck(buchnummer):
+    import modules.ausleihe as ausleihe
+    htm = ""
+    a = ausleihe.Ausleihe
+
     return htm
+
 
 def manaus(lesernummer,buchnummer):
     return htm
