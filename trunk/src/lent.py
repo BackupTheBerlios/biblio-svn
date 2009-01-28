@@ -21,25 +21,25 @@ def content():
     </tr></table>"""
     if 'act' in form.keys():
         if form['act'].value == "manrueck":
-            htm.replace('<td><a href="./init.py?mn=lent&act=manrueck">Manuelle Rückgabe</a></td>',"...")
+            htm=htm.replace('<a href="./init.py?mn=lent&act=manrueck">Manuelle Rückgabe</a>',"...")
             if 'bn' in form.keys():
                 htm+=manrueck(form['bn'])
             else:
                 htm+=manrueck("")
         elif form['act'].value == "manaus":
-            htm.replace('<td><a href="./init.py?mn=lent&act=manaus">Manuelle Ausleihe</a></td>',"...")
+            htm=htm.replace('<a href="./init.py?mn=lent&act=manaus">Manuelle Ausleihe</a>',"...")
             if 'bn' and 'ln' in form.keys():
                 htm+=manaus(form['ln'],form['bn'])
             else:
                 htm+=manaus("","")
         elif form['act'].value == "aus":
-            htm.replace('<td><a href="./init.py?mn=lent&act=aus">Ausleihe</a></td>',"...")
+            htm=htm.replace('<a href="./init.py?mn=lent&act=aus">Ausleihe</a>',"...")
             if 'bn' and 'ln' in form.keys():
                 htm+=aus(form['ln'],form['bn'])
             else:
                 htm+=aus("","")
         elif form['act'].value == "rueck":
-            htm.replace('<td><a href="./init.py?mn=lent&act=rueck">Rückgabe</a></td>',"...")
+            htm=htm.replace('<a href="./init.py?mn=lent&act=rueck">Rückgabe</a>',"...")
             if 'bn' in form.keys():
                 htm+=rueck(form['bn'])
             else:
