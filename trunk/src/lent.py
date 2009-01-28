@@ -51,10 +51,15 @@ def content():
 
     return htm
 
-def manrueck(buchnummer):
+def manrueck(booknr):
     import modules.ausleihe as ausleihe
     htm = ""
     a = ausleihe.Ausleihe
+
+    if db.check("nr",booknr) and booknr!="":
+        
+        
+
 
     return htm
 
