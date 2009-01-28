@@ -1,4 +1,5 @@
-#Aus-/RÃ¼ckgabe Frontend
+# -*- coding: cp1252 -*-
+#Aus-/Rückgabe Frontend
 #===============================================================================
 #
 # ein/zwei-eingabefelder formular
@@ -14,13 +15,13 @@ def content():
 
     htm+="""<table><tr>
     <td>Ausleihe</td>
-    <td>RÃ¼ckgabe</td>
+    <td>Rückgabe</td>
     <td>Manuelle Ausleihe</td>
-    <td>Manuelle RÃ¼ckgabe</td>
+    <td>Manuelle Rückgabe</td>
     </tr></table>"""
     if 'act' in form.keys():
         if form['act'].value == "manrueck":
-            htm.replace("<td>Manuelle RÃ¼ckgabe</td>","...")
+            htm.replace("<td>Manuelle Rückgabe</td>","...")
             htm+=manrueck(form['bn'])
         elif form['act'].value == "manaus":
             htm.replace("<td>Manuelle Ausleihe</td>","...")
@@ -29,10 +30,10 @@ def content():
             htm.replace("<td>Ausleihe</td>","...")
             htm+=aus(form['ln'],form['bn'])
         elif form['act'].value == "rueck":
-            htm.replace("<td>RÃ¼ckgabe</td>","...")
+            htm.replace("<td>Rückgabe</td>","...")
             htm+=rueck(form['bn'])
         else:
-            htm+=html.message("UngÃ¼ltiger Modus!","Leider gab es einen Fehler beim Aufruf...",0).rtn()
+            htm+=html.message("Ungültiger Modus!","Leider gab es einen Fehler beim Aufruf...",0).rtn()
     else:
         htm+=html.paragraph("Beginnen Sie mit einem Klick auf die jeweilige Aktion...").rtn()
 
