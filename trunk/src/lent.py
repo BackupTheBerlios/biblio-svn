@@ -62,7 +62,12 @@ def content():
         if form['act'].value == "aus":
             htm=htm.replace('<a href="./init.py?mn=lent&act=aus">Ausleihe</a>',"...")
             if 'bn' and 'ln' in form.keys():
-                htm+=aus(form['ln'],form['bn'])
+                if 'lend' in form.keys():
+                    htm+=aus(form['ln'],form['bn'],"lend")
+                elif 'save' in form.keys():
+                    htm+=aus(form['ln'],form['bn'],"save")
+                else:
+                    htm+=aus(form['ln'],form['bn'])
             else:
                 htm+=aus("","")
         elif form['act'].value == "rueck":
@@ -97,22 +102,35 @@ def content():
 #    return htm
 #===============================================================================
 
-def aus(lesernummer,buchnummer):
-    htm='''<body onload="document.fo.ln.focus();">
-        <form name="fo" action="./init.py" method="get">
-        <input type="hidden" name="mn" value="lent" />
-        <input type="hidden" name="act" value="aus" />
-        <p>Scannen oder wählen Sie bitte Leser- und Buchnummer aus:</p>
-        <p>
-        <input type="text" name="ln" maxlength="10" tabindex="1" onkeyup="if document.fo.ln.length=/>
-        <input type="text" name="bn" maxlength="10" tabindex="2" />
-        <input type="button" name="submit" value="Ausleihen" tabindex="3" />
-        <input type="button" name="submit" value="Ausleihen und Lesernummer beibehalten." tabindex="4" />
-        </p>
-        </form>'''
+def aus(lesernummer,buchnummer,mode=""):
+    htm=''
+
+    if mode=="":
+        htm+='''<body onload="document.fo.ln.focus();">
+            <form name="fo" action="./init.py" method="get">
+            <input type="hidden" name="mn" value="lent" />
+            <input type="hidden" name="act" value="aus" />
+            <p>Scannen oder wählen Sie bitte Leser- und Buchnummer aus:</p>
+            <p>
+            <input type="text" name="ln" maxlength="10" tabindex="1" onkeyup="if(document.fo.ln.value.length==10){document.fo.bn.focus()};" />
+            <input type="text" name="bn" maxlength="10" tabindex="2" onkeyup="if(document.fo.bn.value.length==10){document.fo.submit.focus()};" />
+            <input type="submit" name="lend" value="Ausleihen." tabindex="3" />
+            <input type="submit" name="save" value="Ausleihen und Lesernummer beibehalten..." tabindex="4" />
+            </p>
+            </form>'''
+    elif mode=="lend":
+        #TODO: Lend-Mode schreiben
+        print "lend"
+    elif mode=="save":
+        #TODO: Save-Mode schreiben
+        print "save"
+    else:
+        #TODO: HTML-Error implementieren
+        raise ValueError,"Falscher Modus!"
 
 
     return htm
+
 
 def rueck(buchnummer):
     htm='''<body onload="document.fo.ln.focus();">
@@ -125,6 +143,4 @@ def rueck(buchnummer):
         <input type="submit" name="mysubmit" value="Rückgabe" tabindex="2" />
         </p>
         </form>'''
-
-
     return htm
