@@ -61,15 +61,20 @@ def content():
 #===============================================================================
         if form['act'].value == "aus":
             htm=htm.replace('<a href="./init.py?mn=lent&act=aus">Ausleihe</a>',"...")
-            if 'bn' and 'ln' in form.keys():
-                if 'lend' in form.keys():
-                    htm+=aus(form['ln'],form['bn'],"lend")
-                elif 'save' in form.keys():
-                    htm+=aus(form['ln'],form['bn'],"save")
-                else:
-                    htm+=aus(form['ln'],form['bn'])
+
+            #Zuweisung der Variablen
+            try: bn=form['bn']
+            except KeyError: bn=""
+            try: ln=form['ln']
+            except KeyError: ln=""
+
+            #Mode-Auswahl
+            if 'lend' in form.keys():
+               htm+=aus(ln,bn,"lend")
+            elif 'save' in form.keys():
+                htm+=aus(ln,bn,"save")
             else:
-                htm+=aus("","")
+                htm+=aus(ln,bn,"")
         elif form['act'].value == "rueck":
             htm=htm.replace('<a href="./init.py?mn=lent&act=rueck">Rückgabe</a>',"...")
             if 'bn' in form.keys():
@@ -124,10 +129,6 @@ def aus(lesernummer,buchnummer,mode=""):
     elif mode=="save":
         #TODO: Save-Mode schreiben
         print "save"
-    else:
-        #TODO: HTML-Error implementieren
-        raise ValueError,"Falscher Modus!"
-
 
     return htm
 
