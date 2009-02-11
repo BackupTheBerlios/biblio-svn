@@ -118,7 +118,7 @@ def aus(lesernummer,buchnummer,mode=""):
             <p>Scannen oder wählen Sie bitte Leser- und Buchnummer aus:</p>
             <p>
             <input type="text" name="ln" maxlength="10" tabindex="1" onkeyup="if(document.fo.ln.value.length==10){document.fo.bn.focus()};" />
-            <input type="text" name="bn" maxlength="10" tabindex="2" onkeyup="if(document.fo.bn.value.length==10){document.fo.submit.focus()};" />
+            <input type="text" name="bn" maxlength="10" tabindex="2" onkeyup="if(document.fo.bn.value.length==10){document.lend.submit.focus()};" />
             <input type="submit" name="lend" value="Ausleihen." tabindex="3" />
             <input type="submit" name="save" value="Ausleihen und Lesernummer beibehalten..." tabindex="4" />
             </p>
