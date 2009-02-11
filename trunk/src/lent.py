@@ -28,6 +28,7 @@ class Nummer():
             return str(int(nr_lang)-(2*10**9))
         else:
             raise ValueError,"Ungueltige Nummer!"
+
 def content():
     #TODO: Titelleiste & Parameterabfrage /-weiterleitung
     import cgi,html
@@ -37,23 +38,28 @@ def content():
     htm+="""<table><tr>
     <td><a href="./init.py?mn=lent&act=aus">Ausleihe</a></td>
     <td><a href="./init.py?mn=lent&act=rueck">Rückgabe</a></td>
-    <td><a href="./init.py?mn=lent&act=manaus">Manuelle Ausleihe</a></td>
-    <td><a href="./init.py?mn=lent&act=manrueck">Manuelle Rückgabe</a></td>
     </tr></table>"""
+
+    #<td><a href="./init.py?mn=lent&act=manaus">Manuelle Ausleihe</a></td>
+    #<td><a href="./init.py?mn=lent&act=manrueck">Manuelle Rückgabe</a></td>
+
     if 'act' in form.keys():
-        if form['act'].value == "manrueck":
-            htm=htm.replace('<a href="./init.py?mn=lent&act=manrueck">Manuelle Rückgabe</a>',"...")
-            if 'bn' in form.keys():
-                htm+=manrueck(form['bn'])
-            else:
-                htm+=manrueck("")
-        elif form['act'].value == "manaus":
-            htm=htm.replace('<a href="./init.py?mn=lent&act=manaus">Manuelle Ausleihe</a>',"...")
-            if 'bn' and 'ln' in form.keys():
-                htm+=manaus(form['ln'],form['bn'])
-            else:
-                htm+=manaus("","")
-        elif form['act'].value == "aus":
+#===============================================================================
+#        if form['act'].value == "manrueck":
+#            htm=htm.replace('<a href="./init.py?mn=lent&act=manrueck">Manuelle Rückgabe</a>',"...")
+#            if 'bn' in form.keys():
+#                htm+=manrueck(form['bn'])
+#            else:
+#                htm+=manrueck("")
+#        elif form['act'].value == "manaus":
+#            htm=htm.replace('<a href="./init.py?mn=lent&act=manaus">Manuelle Ausleihe</a>',"...")
+#            if 'bn' and 'ln' in form.keys():
+#                htm+=manaus(form['ln'],form['bn'])
+#            else:
+#                htm+=manaus("","")
+#        el
+#===============================================================================
+        if form['act'].value == "aus":
             htm=htm.replace('<a href="./init.py?mn=lent&act=aus">Ausleihe</a>',"...")
             if 'bn' and 'ln' in form.keys():
                 htm+=aus(form['ln'],form['bn'])
@@ -92,9 +98,24 @@ def content():
 #===============================================================================
 
 def aus(lesernummer,buchnummer):
-    htm=""
+    htm='''<body onload="document.fo.ln.focus();">
+        <form name="fo" action="./init.py" method="get">
+        <input type="hidden" name="mn" value="lent" />
+        <input type="hidden" name="act" value="aus" />
+        <p>Scannen oder wählen Sie bitte Leser- und Buchnummer aus:</p>
+        <p>
+        <input type="text" name="ln" maxlength="10" tabindex="1" onkeyup="if document.fo.ln.length=/>
+        <input type="text" name="bn" maxlength="10" tabindex="2" />
+        <input type="button" name="submit" value="Ausleihen" tabindex="3" />
+        <input type="button" name="submit" value="Ausleihen und Lesernummer beibehalten." tabindex="4" />
+        </p>
+        </form>'''
+
+
     return htm
 
 def rueck(buchnummer):
     htm=""
+
+
     return htm
