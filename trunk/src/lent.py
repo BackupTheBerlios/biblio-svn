@@ -72,22 +72,24 @@ def content():
 
     return htm
 
-def manrueck(booknr):
-    import modules.ausleihe as ausleihe
-    htm = ""
-    a = ausleihe.Ausleihe
-
-    if db.check("nr",booknr) and booknr!="":
-        
-        
-
-
-    return htm
-
-
-def manaus(lesernummer,buchnummer):
-    htm=""
-    return htm
+#===============================================================================
+# def manrueck(booknr):
+#    import modules.ausleihe as ausleihe
+#    htm = ""
+#    a = ausleihe.Ausleihe
+#
+#    if db.check("nr",booknr) and booknr!="":
+#
+#
+#
+#
+#    return htm
+#
+#
+# def manaus(lesernummer,buchnummer):
+#    htm=""
+#    return htm
+#===============================================================================
 
 def aus(lesernummer,buchnummer):
     htm=""
