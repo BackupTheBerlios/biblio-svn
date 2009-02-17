@@ -7,30 +7,7 @@
 # zugriff auf suche
 #===============================================================================
 
-class Nummer():
-    def buch2lang(self,nr_kurz):
-        if int(nr_kurz)<10**9:
-            return str(10**9+int(nr_kurz))
-        else:
-            raise ValueError,"Ungueltige Nummer!"
-    def buch2kurz(self,nr_lang):
-        if 2*10**9>int(nr_lang)>10**9:
-            return str(int(nr_lang)-(10**9))
-        else:
-            raise ValueError,"Ungueltige Nummer!"
-    def sch2lang(self,nr_kurz):
-        if int(nr_kurz)<10**9:
-            return str(2*10**9+int(nr_kurz))
-        else:
-            raise ValueError,"Ungueltige Nummer!"
-    def sch2kurz(self,nr_lang):
-        if int(nr_lang)>2*10**9:
-            return str(int(nr_lang)-(2*10**9))
-        else:
-            raise ValueError,"Ungueltige Nummer!"
-
 def content():
-    #TODO: Titelleiste & Parameterabfrage /-weiterleitung
     import cgi,html
     form=cgi.FieldStorage()
     htm=""
@@ -63,9 +40,9 @@ def content():
             htm=htm.replace('<a href="./init.py?mn=lent&act=aus">Ausleihe</a>',"...")
 
             #Zuweisung der Variablen
-            try: bn=form['bn']
+            try: bn=form['bn'].value
             except KeyError: bn=""
-            try: ln=form['ln']
+            try: ln=form['ln'].value
             except KeyError: ln=""
 
             #Mode-Auswahl
@@ -74,7 +51,7 @@ def content():
             elif 'save' in form.keys():
                 htm+=aus(ln,bn,"save")
             else:
-                htm+=aus(ln,bn,"")
+                htm+=aus()
         elif form['act'].value == "rueck":
             htm=htm.replace('<a href="./init.py?mn=lent&act=rueck">Rückgabe</a>',"...")
             if 'bn' in form.keys():
@@ -107,27 +84,43 @@ def content():
 #    return htm
 #===============================================================================
 
-def aus(lesernummer,buchnummer,mode=""):
+def aus(lesernummer="",buchnummer="",mode=""):
     htm=''
-    if mode=="":
-        htm+='''<body onload="document.fo.ln.focus();">
+    ln=""
+    bn=""
+    import html
+
+    if mode=="lend":
+        if lesernummer and buchnummer != "":
+            import ausleihe,kurzlang
+            a=ausleihe.Ausleihe()
+            try: lesernummer=kurzlang.sch2kurz(lesernummer)
+            except: pass
+            try:
+                a.borrow(lesernummer,buchnummer)
+                htm+=html.paragraph('<div style="background-color:green">Buch '+buchnummer+' wurde an '+lesernummer+' erfolgreich ausgeliehen.</div>').rtn()
+            except ValueError, error:
+                htm+=html.paragraph('<div style="background-color:red">'+error.message+'</div>').rtn()
+                pass
+
+
+    if mode=="save":
+        htm+=html.paragraph("<div color=darkgreen>Buch "+buchnummer+" wurde an "+lesernummer+" erfolgreich ausgeliehen.</div>").rtn()
+        ln=str(lesernummer)
+
+
+    htm+='''<body onload="document.fo.ln.focus();">
             <form name="fo" action="./init.py" method="get">
             <input type="hidden" name="mn" value="lent" />
             <input type="hidden" name="act" value="aus" />
             <p>Scannen oder wählen Sie bitte Leser- und Buchnummer aus:</p>
             <p>
-            <input type="text" name="ln" maxlength="10" tabindex="1" onkeyup="if(document.fo.ln.value.length==10){document.fo.bn.focus()};" />
-            <input type="text" name="bn" maxlength="10" tabindex="2" onkeyup="if(document.fo.bn.value.length==10){document.fo.lend.focus()};" />
+            Lesernummer: <input type="text" name="ln" value="'''+ln+'''" maxlength="10" tabindex="1" onkeyup="if(document.fo.ln.value.length==10){document.fo.bn.focus()};" /><br />
+            Buchnummer: <input type="text" name="bn" value="'''+bn+'''" maxlength="10" tabindex="2" onkeyup="if(document.fo.bn.value.length==10){document.fo.lend.focus()};" /><br />
             <input type="submit" name="lend" value="Ausleihen." tabindex="3" />
             <input type="submit" name="save" value="Ausleihen und Lesernummer beibehalten..." tabindex="4" />
             </p>
             </form>'''
-    elif mode=="lend":
-        #TODO: Lend-Mode schreiben
-        print "lend"
-    elif mode=="save":
-        #TODO: Save-Mode schreiben
-        print "save"
 
     return htm
 
