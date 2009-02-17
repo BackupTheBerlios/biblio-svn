@@ -132,7 +132,7 @@ def aus(lesernummer,buchnummer,mode=""):
     return htm
 
 
-def rueck(lesernummer, buchnummer, mode=""):
+def rueck(lesernummer="", buchnummer="", mode=""):
     htm = ''
     if mode == "":
         htm='''<body onload="document.fo.ln.focus();">
@@ -146,6 +146,6 @@ def rueck(lesernummer, buchnummer, mode=""):
         <input type="submit" name="mysubmit" value="Rückgabe" tabindex="2" />
         </p>
         </form>'''
-    elif mode == "mysubmit":
-        htm+='mysubmit'
+    elif mode == "bn":
+        htm+="bn"
     return htm
