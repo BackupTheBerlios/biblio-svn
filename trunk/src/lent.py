@@ -146,6 +146,6 @@ def rueck(lesernummer, buchnummer, mode=""):
         <input type="submit" name="mysubmit" value="Rückgabe" tabindex="2" />
         </p>
         </form>'''
-    elif mode == "back":
-        print "back"
+    elif mode == "mysubmit":
+        htm+='mysubmit'
     return htm
