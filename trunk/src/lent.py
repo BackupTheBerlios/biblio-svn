@@ -109,7 +109,6 @@ def content():
 
 def aus(lesernummer,buchnummer,mode=""):
     htm=''
-
     if mode=="":
         htm+='''<body onload="document.fo.ln.focus();">
             <form name="fo" action="./init.py" method="get">
@@ -134,13 +133,16 @@ def aus(lesernummer,buchnummer,mode=""):
 
 
 def rueck(buchnummer):
-    htm='''<body onload="document.fo.ln.focus();">
+    htm = ''
+    if mode == "":
+        htm='''<body onload="document.fo.ln.focus();">
         <form name="fo" action="./init.py" method="get">
         <input type="hidden" name="mn" value="lent" />
         <input type="hidden" name="act" value="rueck" />
         <p>Scannen oder wählen Sie bitte Buchnummer aus:</p>
         <p>
-        <input type="text" name="bn" maxlength="10" tabindex="1" />
+        <input type="text" name="bn" maxlength="10" tabindex="1" onkeyup="if(document.fo.ln.value.length==10){document.fo.bn.focus()};" />
+        <input type="text" name="bn" maxlength="10" tabindex="2" onkeyup="if(document.fo.bn.value.length==10){document.fo.submit.focus()};" />
         <input type="submit" name="mysubmit" value="Rückgabe" tabindex="2" />
         </p>
         </form>'''
