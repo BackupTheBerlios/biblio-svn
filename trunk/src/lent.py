@@ -140,9 +140,9 @@ def rueck(buchnummer=""):
             pass
         try:
             a.handback(buchnummer)
-            ###hinweis
+            htm+=html.paragraph('<div style="background-color:green">Buch '+buchnummer+' wurde erfolgreich zurückgegeben.</div>').rtn()
         except ValueError, error:
-            htm+=html.paragraph('<div style="background-color:red">'+error.messag+'</div>').rtn()
+            htm+=html.paragraph('<div style="background-color:red">'+error.message+'</div>').rtn()
 
     htm+='''<body onload="document.fo.bn.focus();">
             <form name="fo" action="./init.py" method="get">
