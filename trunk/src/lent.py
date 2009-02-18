@@ -97,21 +97,26 @@ def aus(lesernummer="",buchnummer="",mode=""):
             try:
                 l=kurzlang.sch2kurz(lesernummer)
                 b=kurzlang.buch2kurz(buchnummer)
-            except: pass
-            try:
-                a.borrow(l,b)
-                htm+=html.paragraph('<div style="background-color:green">Buch '+buchnummer+' wurde an '+lesernummer+' erfolgreich ausgeliehen.</div>').rtn()
-            except ValueError, error:
-                htm+=html.paragraph('<div style="background-color:red">'+error.message+'</div>').rtn()
-                pass
+                try:
+                    a.borrow(l,b)
+                    htm+=html.paragraph('<div style="background-color:green">Buch '+buchnummer+' wurde an '+lesernummer+' erfolgreich ausgeliehen.</div>').rtn()
+                except ValueError, error:
+                    htm+=html.paragraph('<div style="background-color:red">'+error.message+'</div>').rtn()
+                    pass
+            except ValueError:
+                htm+=html.paragraph('<div style="background-color:red">Bitte geben Sie gültige Nummern ein!</div>').rtn()
+
         else:
             htm+=html.paragraph('<div style="background-color:red">Bitte Buch- <i>und</i> Lesernummer eingeben</div>').rtn()
         if mode=="save":
             ln=str(lesernummer)
+            htm+='<body onload="document.fo.bn.focus();">'
+        else:
+            htm+='<body onload="document.fo.ln.focus();">'
+    else:
+        htm+='<body onload="document.fo.ln.focus();">'
 
-
-    htm+='''<body onload="document.fo.ln.focus();">
-            <form name="fo" action="./init.py" method="get">
+    htm+='''<form name="fo" action="./init.py" method="get">
             <input type="hidden" name="mn" value="lent" />
             <input type="hidden" name="act" value="aus" />
             <p>Scannen oder wählen Sie bitte Leser- und Buchnummer aus:</p>
