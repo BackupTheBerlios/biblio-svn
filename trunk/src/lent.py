@@ -1,14 +1,9 @@
 # -*- coding: cp1252 -*-
 #Aus-/Rückgabe Frontend
 #===============================================================================
-#
-# ein/zwei-eingabefelder formular
-# linkleiste
-# zugriff auf suche
-#===============================================================================
 
 def content():
-    import cgi,html
+    import cgi,modules.html as html
     form=cgi.FieldStorage()
     htm=""
 
@@ -17,25 +12,7 @@ def content():
     <td><a href="./init.py?mn=lent&act=rueck">Rückgabe</a></td>
     </tr></table>"""
 
-    #<td><a href="./init.py?mn=lent&act=manaus">Manuelle Ausleihe</a></td>
-    #<td><a href="./init.py?mn=lent&act=manrueck">Manuelle Rückgabe</a></td>
-
     if 'act' in form.keys():
-#===============================================================================
-#        if form['act'].value == "manrueck":
-#            htm=htm.replace('<a href="./init.py?mn=lent&act=manrueck">Manuelle Rückgabe</a>',"...")
-#            if 'bn' in form.keys():
-#                htm+=manrueck(form['bn'])
-#            else:
-#                htm+=manrueck("")
-#        elif form['act'].value == "manaus":
-#            htm=htm.replace('<a href="./init.py?mn=lent&act=manaus">Manuelle Ausleihe</a>',"...")
-#            if 'bn' and 'ln' in form.keys():
-#                htm+=manaus(form['ln'],form['bn'])
-#            else:
-#                htm+=manaus("","")
-#        el
-#===============================================================================
         if form['act'].value == "aus":
             htm=htm.replace('<a href="./init.py?mn=lent&act=aus">Ausleihe</a>',"...")
 
@@ -65,34 +42,15 @@ def content():
 
     return htm
 
-#===============================================================================
-# def manrueck(booknr):
-#    import modules.ausleihe as ausleihe
-#    htm = ""
-#    a = ausleihe.Ausleihe
-#
-#    if db.check("nr",booknr) and booknr!="":
-#
-#
-#
-#
-#    return htm
-#
-#
-# def manaus(lesernummer,buchnummer):
-#    htm=""
-#    return htm
-#===============================================================================
-
 def aus(lesernummer="",buchnummer="",mode=""):
-    import html
+    import modules.html as html
     htm=''
     ln=""
     bn=""
 
     if mode!="":
         if lesernummer and buchnummer != "":
-            import ausleihe,kurzlang
+            import modules.ausleihe as ausleihe, modules.kurzlang as kurzlang
             a=ausleihe.Ausleihe()
             try:
                 l=kurzlang.sch2kurz(lesernummer)
@@ -132,11 +90,11 @@ def aus(lesernummer="",buchnummer="",mode=""):
 
 
 def rueck(buchnummer=""):
-    import html
+    import modules.html as html
     htm = ''
 
     if buchnummer!="":
-        import ausleihe, kurzlang
+        import modules.ausleihe as ausleihe, modules.kurzlang as kurzlang
         a = ausleihe.Ausleihe()
 
         try:
