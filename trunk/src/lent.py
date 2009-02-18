@@ -141,13 +141,16 @@ def rueck(buchnummer=""):
 
         try:
             buchnummer = kurzlang.buch2kurz(buchnummer)
-        except:
-            pass
-        try:
-            a.handback(buchnummer)
-            htm+=html.paragraph('<div style="background-color:green">Buch '+buchnummer+' wurde erfolgreich zurückgegeben.</div>').rtn()
+            try:
+                a.handback(buchnummer)
+                htm+=html.paragraph('<div style="background-color:green">Buch '+buchnummer+' wurde erfolgreich zurückgegeben.</div>').rtn()
+            except ValueError, error:
+                htm+=html.paragraph('<div style="background-color:red">'+error.message+'</div>').rtn()
         except ValueError, error:
             htm+=html.paragraph('<div style="background-color:red">'+error.message+'</div>').rtn()
+            pass
+
+
 
     htm+='''<body onload="document.fo.bn.focus();">
             <form name="fo" action="./init.py" method="get">
