@@ -148,7 +148,7 @@ def rueck(buchnummer=""):
             <form name="fo" action="./init.py" method="get">
             <input type="hidden" name="mn" value="lent" />
             <input type="hidden" name="act" value="rueck" />
-            <p>Scannen oder wählen Sie bitte die Buchnummer aus:</p>
+            <p><U>Scannen oder wählen Sie bitte die Buchnummer aus:</U></p>
             <p>
             <input type="text" name="bn" maxlength="10" tabindex="1" onkeyup="if(document.fo.bn.value.length==10){document.fo.mysubmit.focus()};" /><br />
             <input type="submit" name="mysubmit" value="Rückgabe" tabindex="2" />
