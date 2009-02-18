@@ -94,7 +94,9 @@ def aus(lesernummer="",buchnummer="",mode=""):
         if lesernummer and buchnummer != "":
             import ausleihe,kurzlang
             a=ausleihe.Ausleihe()
-            try: lesernummer=kurzlang.sch2kurz(lesernummer)
+            try:
+                lesernummer=kurzlang.sch2kurz(lesernummer)
+                buchnummer=kurzlang.buch2kurz(buchnummer)
             except: pass
             try:
                 a.borrow(lesernummer,buchnummer)
@@ -102,10 +104,26 @@ def aus(lesernummer="",buchnummer="",mode=""):
             except ValueError, error:
                 htm+=html.paragraph('<div style="background-color:red">'+error.message+'</div>').rtn()
                 pass
+        else:
+            htm+=html.paragraph('<div style="background-color:red">Bitte Buch- <i>und</i> Lesernummer eingeben</div>').rtn()
 
 
     if mode=="save":
-        htm+=html.paragraph("<div color=darkgreen>Buch "+buchnummer+" wurde an "+lesernummer+" erfolgreich ausgeliehen.</div>").rtn()
+        if lesernummer and buchnummer != "":
+            import ausleihe,kurzlang
+            a=ausleihe.Ausleihe()
+            try:
+                lesernummer=kurzlang.sch2kurz(lesernummer)
+                buchnummer=kurzlang.buch2kurz(buchnummer)
+            except: pass
+            try:
+                a.borrow(lesernummer,buchnummer)
+                htm+=html.paragraph('<div style="background-color:green">Buch '+buchnummer+' wurde an '+lesernummer+' erfolgreich ausgeliehen.</div>').rtn()
+            except ValueError, error:
+                htm+=html.paragraph('<div style="background-color:red">'+error.message+'</div>').rtn()
+                pass
+        else:
+            htm+=html.paragraph('<div style="background-color:red">Bitte Buch- <i>und</i> Lesernummer eingeben</div>').rtn()
         ln=str(lesernummer)
 
 
