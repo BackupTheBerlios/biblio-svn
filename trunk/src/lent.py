@@ -74,7 +74,7 @@ def aus(lesernummer="",buchnummer="",mode=""):
     else:
         htm+='<body onload="document.fo.ln.focus();">'
 
-    htm+='''<form name="fo" action="./start.py" method="get">
+    htm+='''<fieldset><form name="fo" action="./start.py" method="get">
             <input type="hidden" name="mn" value="lent" />
             <input type="hidden" name="act" value="aus" />
             <p>Scannen oder w&auml;hlen Sie bitte Leser- und Buchnummer aus:</p>
@@ -84,7 +84,7 @@ def aus(lesernummer="",buchnummer="",mode=""):
             <input type="submit" name="lend" value="Ausleihen." tabindex="3" />
             <input type="submit" name="save" value="Ausleihen und Lesernummer beibehalten..." tabindex="4" />
             </p>
-            </form>'''
+            </form></fieldset>'''
 
     return htm
 
@@ -109,7 +109,7 @@ def rueck(buchnummer=""):
             pass
 
     htm+='''<body onload="document.fo.bn.focus();">
-            <form name="fo" action="./start.py" method="get">
+            <fieldset><form name="fo" action="./start.py" method="get">
             <input type="hidden" name="mn" value="lent" />
             <input type="hidden" name="act" value="rueck" />
             <p><U>Scannen oder w&auml;hlen Sie bitte die Buchnummer aus:</U></p>
@@ -117,5 +117,5 @@ def rueck(buchnummer=""):
             <input type="text" name="bn" maxlength="10" tabindex="1" onkeyup="if(document.fo.bn.value.length==10){document.fo.mysubmit.focus()};" /><a href="./start.py?mn=books" target="_blank">Buch suchen...</a><br />
             <input type="submit" name="mysubmit" value="R&uuml;ckgabe" tabindex="2" />
             </p>
-            </form>'''
+            </form></fieldset>'''
     return htm
