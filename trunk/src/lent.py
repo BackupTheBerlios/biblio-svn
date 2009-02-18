@@ -129,6 +129,23 @@ def aus(lesernummer="",buchnummer="",mode=""):
 def rueck(lesernummer="", buchnummer="", mode=""):
     import html
 
+    htm = ''
+
+    if mode == "rueck":
+        if lesernummer and buchnummer == "":
+            import ausleihe, kurzlang
+
+            a = ausleihe.Ausleihe()
+            try:
+                lesernummer = kurzlang.sch2kurz(lesernummer)
+            except:
+                pass
+            try:
+                a.handback(lesernummer, buchnummer)
+            except ValueError, error:
+                htm+=html.paragraph('<div style="background-color:red">'+error.messag+'</div>').rtn()
+
+
     htm+='''<body onload="document.fo.ln.focus();">
             <form name="fo" action="./init.py" method="get">
             <input type="hidden" name="mn" value="lent" />
