@@ -95,11 +95,11 @@ def aus(lesernummer="",buchnummer="",mode=""):
             import ausleihe,kurzlang
             a=ausleihe.Ausleihe()
             try:
-                lesernummer=kurzlang.sch2kurz(lesernummer)
-                buchnummer=kurzlang.buch2kurz(buchnummer)
+                l=kurzlang.sch2kurz(lesernummer)
+                b=kurzlang.buch2kurz(buchnummer)
             except: pass
             try:
-                a.borrow(lesernummer,buchnummer)
+                a.borrow(l,b)
                 htm+=html.paragraph('<div style="background-color:green">Buch '+buchnummer+' wurde an '+lesernummer+' erfolgreich ausgeliehen.</div>').rtn()
             except ValueError, error:
                 htm+=html.paragraph('<div style="background-color:red">'+error.message+'</div>').rtn()
