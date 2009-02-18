@@ -121,8 +121,8 @@ def aus(lesernummer="",buchnummer="",mode=""):
             <input type="hidden" name="act" value="aus" />
             <p>Scannen oder wählen Sie bitte Leser- und Buchnummer aus:</p>
             <p>
-            Lesernummer: <input type="text" name="ln" value="'''+ln+'''" maxlength="10" tabindex="1" onkeyup="if(document.fo.ln.value.length==10){document.fo.bn.focus()};" /><br />
-            Buchnummer: <input type="text" name="bn" value="'''+bn+'''" maxlength="10" tabindex="2" onkeyup="if(document.fo.bn.value.length==10){document.fo.lend.focus()};" /><br />
+            Lesernummer: <input type="text" name="ln" value="'''+ln+'''" maxlength="10" tabindex="1" onkeyup="if(document.fo.ln.value.length==10){document.fo.bn.focus()};" /><a href="./init.py?mn=pupil" target="_blank">Leser suchen...</a><br />
+            Buchnummer: <input type="text" name="bn" value="'''+bn+'''" maxlength="10" tabindex="2" onkeyup="if(document.fo.bn.value.length==10){document.fo.lend.focus()};" /><a href="./init.py?mn=books" target="_blank">Buch suchen...</a><br />
             <input type="submit" name="lend" value="Ausleihen." tabindex="3" />
             <input type="submit" name="save" value="Ausleihen und Lesernummer beibehalten..." tabindex="4" />
             </p>
@@ -156,7 +156,7 @@ def rueck(buchnummer=""):
             <input type="hidden" name="act" value="rueck" />
             <p><U>Scannen oder wählen Sie bitte die Buchnummer aus:</U></p>
             <p>
-            <input type="text" name="bn" maxlength="10" tabindex="1" onkeyup="if(document.fo.bn.value.length==10){document.fo.mysubmit.focus()};" /><br />
+            <input type="text" name="bn" maxlength="10" tabindex="1" onkeyup="if(document.fo.bn.value.length==10){document.fo.mysubmit.focus()};" /><a href="./init.py?mn=books" target="_blank">Buch suchen...</a><br />
             <input type="submit" name="mysubmit" value="Rückgabe" tabindex="2" />
             </p>
             </form>'''
