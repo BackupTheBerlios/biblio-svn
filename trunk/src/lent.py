@@ -55,7 +55,7 @@ def content():
         elif form['act'].value == "rueck":
             htm=htm.replace('<a href="./init.py?mn=lent&act=rueck">Rückgabe</a>',"...")
             if 'bn' in form.keys():
-                htm+=rueck(form['bn'])
+                htm+=rueck(form['bn'].value)
             else:
                 htm+=rueck("")
         else:
@@ -126,34 +126,31 @@ def aus(lesernummer="",buchnummer="",mode=""):
     return htm
 
 
-def rueck(lesernummer="", buchnummer="", mode=""):
+def rueck(buchnummer=""):
     import html
-
     htm = ''
 
-    if mode == "rueck":
-        if lesernummer and buchnummer == "":
-            import ausleihe, kurzlang
+    if buchnummer!="":
+        import ausleihe, kurzlang
+        a = ausleihe.Ausleihe()
 
-            a = ausleihe.Ausleihe()
-            try:
-                lesernummer = kurzlang.sch2kurz(lesernummer)
-            except:
-                pass
-            try:
-                a.handback(lesernummer, buchnummer)
-            except ValueError, error:
-                htm+=html.paragraph('<div style="background-color:red">'+error.messag+'</div>').rtn()
+        try:
+            buchnummer = kurzlang.buch2kurz(buchnummer)
+        except:
+            pass
+        try:
+            a.handback(buchnummer)
+            ###hinweis
+        except ValueError, error:
+            htm+=html.paragraph('<div style="background-color:red">'+error.messag+'</div>').rtn()
 
-
-    htm+='''<body onload="document.fo.ln.focus();">
+    htm+='''<body onload="document.fo.bn.focus();">
             <form name="fo" action="./init.py" method="get">
             <input type="hidden" name="mn" value="lent" />
             <input type="hidden" name="act" value="rueck" />
-            <p>Scannen oder wählen Sie bitte Buchnummer aus:</p>
+            <p>Scannen oder wählen Sie bitte die Buchnummer aus:</p>
             <p>
-            <input type="text" name="bn" maxlength="10" tabindex="1" onkeyup="if(document.fo.ln.value.length==10){document.fo.bn.focus()};" />
-            <input type="text" name="bn" maxlength="10" tabindex="2" onkeyup="if(document.fo.bn.value.length==10){document.fo.submit.focus()};" />
+            <input type="text" name="bn" maxlength="10" tabindex="1" onkeyup="if(document.fo.bn.value.length==10){document.fo.mysubmit.focus()};" /><br />
             <input type="submit" name="mysubmit" value="Rückgabe" tabindex="2" />
             </p>
             </form>'''
