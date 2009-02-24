@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+	@Autor: Alexander Dethof
+	@Kommentar: Legt das Menue fest; wegen der Zeichensatzcodierung bitte nicht vergessen vor jede UTF-8-Codierung das Ampersandzeichen durch ein &amp; ersetzen! Sonst funktioniert das Programm gar nicht!
+-->
+<menue>
+	<group>
+		<item title="Home" name="home" />
+		<item title="Benutzer" name="profile" />
+	</group>
+	<group>
+		<item title="Aus-/ R&amp;uuml;ckgabe" name="lent" />
+		<item title="B&amp;uuml;cher" name="books" />
+		<item title="Sch&amp;uuml;ler" name="pupil" />
+		<item title="Sicherungen" name="backup" />
+	</group>
+</menue>

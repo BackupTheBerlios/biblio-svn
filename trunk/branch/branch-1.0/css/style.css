@@ -1,0 +1,249 @@
+﻿* {
+ margin : 0;
+ padding : 0;
+ border : 0 none;
+ list-style-type : none;
+}
+
+body {
+ color : #000;
+ font-size : 0.8em;
+ font-family : 'Trebuchet MS', Arial, Sans-Serif;
+}
+
+#menue {
+ background : url(./img/menue_bg.png) repeat-x top left #79BBFF;
+ position : fixed;
+ width : 100%;
+ padding : 10px;
+ padding-bottom : 0;
+ top : 0;
+ left : 0;
+ text-align : center;
+ height : 90px;
+ border-bottom : 2px solid #a00;
+}
+
+#menue .obj, #menue .objs {
+ float : left;
+ text-align : center;
+}
+
+#menue dl dd {
+ margin-bottom : 10px;
+}
+
+#menue dl dt {
+ margin-top : 10px;
+}
+
+#menue dl.obj, #menue dl.objs {
+ float : left;
+ margin : 10px;
+ margin-top : 0;
+ margin-bottom : 0;
+}
+
+#menue dl.objs {
+ background : url(./img/border.png) center right no-repeat;
+ padding-right : 10px;
+ margin-right : -5px;
+}
+
+#menue dl.obj a:link, #menue dl.objs a:link, #menue dl.obj a:visited, #menue dl.objs a:visited {
+ text-decoration : none;
+ color : #000;
+}
+
+#output .highlight {
+ color : #f00;
+}
+
+#output {
+ padding : 20px;
+ margin-top : 100px;
+}
+
+#output * {
+ margin-bottom : 0.5em;
+}
+
+#output h2 {
+ margin-bottom : 25px;
+}
+
+#output table {
+ text-align : left;
+ border-collapse : collapse;
+ width : 100%;
+ table-layout : fixed;
+ clear : both;
+}
+
+#output table thead tr, #output table tfoot tr  {
+ font-weight : bold;
+ background : #79BBFF;
+}
+
+#output table thead tr th, #output table tfoot tr td  {
+ padding : 4px;
+}
+
+#output table tbody tr {
+ height : 8px;
+ background : #fff;
+ font-size : 0.8em;
+}
+
+#output table tbody tr td {
+ padding : 2px 8px;
+}
+
+#output table tbody tr.sc td {
+ background : #ccc;
+}
+
+#output fieldset {
+ border : 1px solid #000;
+ background : #79bbff;
+ padding : 10px;
+ width : 420px;
+ margin : 0 auto;
+ margin-bottom : 10px;
+}
+
+#output fieldset.wide {
+ width : auto;
+}
+
+#output fieldset legend {
+ font-weight : bold;
+ font-size : 1.5em;
+ margin-bottom : 5px;
+}
+
+#output fieldset form input, #output fieldset form textarea {
+ margin-left : 10px;
+ margin-right : 2px;
+ margin-top : 2px;
+ border : 1px solid #000;
+ font-family : Arial;
+ font-size : 1em;
+}
+
+#output fieldset form button {
+ border : 1px solid #000; 
+}
+
+#output fieldset.wide textarea {
+ width : 100%;
+ overflow : scroll;
+ height : 250px;
+}
+
+#output tt {
+ font-size : 2em;
+ font-weight : bold;
+}
+
+#output tt img  {
+ border : 1px solid #a00;
+ padding : 5px;
+ background : #faa;
+ display : block;
+}
+
+#output a:link, #output a:visited {
+ color : #1c85db;
+ text-decoration : underline;
+ font-weight : bold;
+}
+
+#output a:focus, #output a:hover {
+ text-decoration : none;
+}
+
+#opt {
+ background : #faa;
+ height : 22px;
+ margin : 0 auto;
+ padding : 5px;
+ color : #fafafa;
+ border-top : 2px solid #a00;
+ bottom : 0;
+ position : fixed;
+ width : 100%;
+ left : 0;
+}
+
+#opt h1 {
+ float : left;
+ font-size : 1.2em;
+ font-weight : bold;
+ margin-right : 50px;
+}
+
+#opt a {
+ float : right;
+ margin-right : 10px;
+}
+
+#opt fieldset {
+ border : 0 none;
+ background : none;
+ width : auto;
+ margin : 0;
+ padding : 0;
+}
+
+#opt fieldset legend {
+ display : none;
+}
+
+#opt form input {
+ width : 80px;
+}
+
+#output .button {
+ float : right;
+ margin-bottom : 1px;
+}
+
+#output .button img {
+ margin-right : 5px;
+ border : 1px solid #a00;
+ background : #faa;
+ padding : 1px;
+}
+
+#output .note {
+ padding : 5px;
+ border : 1px solid #000;
+ font-family : Times New Roman, Serif;
+ font-size : 1.1em;
+}
+
+#output .note ul, #output .note ol {
+ margin-left : 15px;
+}
+
+#output .note ul li {
+ list-style-type : disc;
+}
+
+#output .note ol li {
+ list-style-type : decimal;
+}
+
+acronym {
+ border-bottom : 1px dotted #000;
+ cursor : help;
+}
+
+#output dl.sys {
+ background : #faa;
+}
+
+#output dl.sys dt {
+ text-transform : uppercase;
+}
