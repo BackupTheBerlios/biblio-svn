@@ -53,10 +53,3 @@ class Ausleihe():
                 raise ValueError,"Buch existiert nicht!"
         else:
             raise ValueError,"Buchnummer wurde nicht uebergeben!"
-
-if "__main__"==__name__:
-    a=Ausleihe()
-    print a.borrow("", "")
-    print a.book_loaned("5")
-    print a.pupil_got("1")
-    print a.handback("20")

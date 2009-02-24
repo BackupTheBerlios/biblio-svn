@@ -1,4 +1,4 @@
-##Dedicated!! <---
+##Deprecated!! <---
 def mach_lang(nr_kurz):
     if int(nr_kurz)<10**9:
         return str(10**9+int(nr_kurz))

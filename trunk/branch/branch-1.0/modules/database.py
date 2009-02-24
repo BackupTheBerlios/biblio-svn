@@ -127,32 +127,3 @@ class Database():
             self.con.close()
         except:
             raise
-
-if __name__=="__main__": ##Debug-Funktion
-    db=Database()
-    print db.backup()
-#===============================================================================
-#    print self.check("isbn","350710606X") #valid 10
-#    print self.check("isbn","9783429019976") #valid 13
-#    print self.check("text", "Hallo!") #valid
-#    print self.check("date", "1990") #valid
-#    print self.check("date", "19900823") #valid
-#    print self.check("nr", "123456") #valid
-#    print "---"
-#===============================================================================
-#===============================================================================
-#    print self.check("isbn","9999999998") #invalid 10
-#    print self.check("isbn","9999999999999") #invalid 13
-#    print self.check("isbn","333") #invalid length
-#    print self.check("text", "el';)delete * from books") #invalid
-#   print self.check("date", "3500") #invalid
-#    print self.check("date", "19900231") #invalid
-#    print self.check("nr", "abc") #invalid
-#    print self.check("else", "murks") #invalid type
-#    print "---"
-#===============================================================================
-#   print "---"
-#    print self.query("SELECT * from book")
-#   print "---"
-    print "Test erfolgreich absolviert."
-#    print help(Database)

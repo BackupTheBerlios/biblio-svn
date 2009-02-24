@@ -1,29 +1,8 @@
-#!C:/Python25/python.exe
 # -*- coding: cp1252 -*-
-#Wiederherstellen
-#Speichern
-#Tabellenzeichenfunktion
-#"geplanter Task" name=main
-#===============================================================================
-#
-# Speicherort:
-# ordner/timestamp.sql
-#
-# FrontEnd-Tabelle:
-# Wiederherstellen (-->db.query)
-# Automatisches Backup
-# Kommentar
-#
-# Backup erstellen:
-# Kommentar
-#
-# Datei:
-# # Kommentar hier...
-# Inhalt
-#===============================================================================
-pfad="backups/"
-adm_user="root"
-adm_pw=""
+
+pfad="backups/" #TODO: Change here!
+adm_user="root" #TODO: Change here!
+adm_pw="" #TODO: Change here!
 import cgitb
 cgitb.enable()
 
@@ -182,9 +161,6 @@ def uebersicht():
     return h
 
 if __name__=="__main__":
-    print 'content-type: text/html'
-    print
-    print "main!"
     #Backup bei Einzelaufruf
     import modules.database as database, time
     db=database.Database()
@@ -192,4 +168,3 @@ if __name__=="__main__":
     f="#Automatisches Backup vom "+time.strftime("%d.%m.%Y")+"\n"+db.backup()
     fl.write(f)
     fl.close
-

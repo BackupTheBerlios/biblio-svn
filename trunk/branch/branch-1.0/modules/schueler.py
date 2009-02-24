@@ -29,7 +29,7 @@ class Pupil():
             else:
                 if db.query ('select nr from pupil where nr='+str(pupilnr)+'')!=():
                     db.query ('delete from pupil where nr='+str(pupilnr)+'')
-                    return True   
+                    return True
                 else:
                     raise ValueError,"Invalid Pupilnumber."
 
@@ -49,24 +49,3 @@ class Pupil():
                 else: where+=key+' like "%'+values[key]+'%"'
         if where!='': return db.query('select nr, vor, nach, date_format(geb,"%e.%c.%Y"),jahrgang from pupil where '+where)
         return db.query('select nr, vor, nach, date_format(geb,"%e.%c.%Y"),jahrgang from pupil')
-
-
-#if "__main__"==__name__:
-
-
-
-
-#==================================================
-    #schueler=Pupil()
-#    print schueler.exist('11')
-#    print schueler.create()
-#    print schueler.edit("20","Micky","Mouse","1990-5-22","12")
-#    print schueler.info(20)[0]
-#    print schueler.delete('2')
-#===============================================================================
-    #print schueler.Search({'vor':'Micky'})
-
-#===============================================================================
-#    print mach_kurz("1000013765")
-#    print mach_lang("1434")
-#===============================================================================>>>>>>> .r81
