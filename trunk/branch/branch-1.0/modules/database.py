@@ -4,10 +4,10 @@ class Database():
         .query(sqlcode) --> tupel
         .check(type,var) --> bool|raise ##type= | (isbn,text,date,nr)
         .backup() --> str(sqlcode)'''
-    host='pc17'
-    user='biblio'
-    pw='test'
-    db_name='biblio'
+    host='pc17' #TODO: Change here!
+    user='biblio' #TODO: Change here!
+    pw='test' #TODO: Change here!
+    db_name='biblio' #TODO: Change here!
     def __init__(self):
         try:
             import MySQLdb as mysql
