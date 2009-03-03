@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
- <!--
-	@Autor: Alexander Dethof
-	@Kommentar: Datei zur Festlegung der Variableninhalte; wegen der Zeichensatzcodierung bitte nicht vergessen vor jede UTF-8-Codierung das Ampersandzeichen durch ein &amp; ersetzen! Sonst funktioniert das Programm gar nicht!
--->
-<options>
-	<config title="title">LAME - Library Administration ME</config>
-</options>
