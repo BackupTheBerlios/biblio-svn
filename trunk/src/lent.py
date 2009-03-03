@@ -60,9 +60,9 @@ def aus(lesernummer="",buchnummer="",mode=""):
                     htm+=html.paragraph('<div style="background-color:green">Buch '+buchnummer+' wurde an '+lesernummer+' erfolgreich ausgeliehen.</div>').rtn()
                 except ValueError, error:
                     htm+=html.paragraph('<div style="background-color:red">'+error.message+'</div>').rtn()
-                    pass
             except ValueError:
                 htm+=html.paragraph('<div style="background-color:red">Bitte geben Sie g&uuml;ltige Nummern ein!</div>').rtn()
+
 
         else:
             htm+=html.paragraph('<div style="background-color:red">Bitte Buch- <i>und</i> Lesernummer eingeben</div>').rtn()
@@ -106,7 +106,6 @@ def rueck(buchnummer=""):
                 htm+=html.paragraph('<div style="background-color:red">'+error.message+'</div>').rtn()
         except ValueError:
             htm+=html.paragraph('<div style="background-color:red">Bitte geben Sie eine g&uuml;ltige Nummer ein!</div>').rtn()
-            pass
 
     htm+='''<body onload="document.fo.bn.focus();">
             <fieldset><form name="fo" action="./start.py" method="get">

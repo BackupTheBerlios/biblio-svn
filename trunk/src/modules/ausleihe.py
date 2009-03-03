@@ -8,8 +8,10 @@ class Ausleihe():
                 raise ValueError,"Buch existiert nicht!"
             if db.query("select nr from pupil where nr="+pupilnr+";")==():
                 raise ValueError,"Schueler existiert nicht!"
+            if db.query("select * from ausleihe where bnr="+booknr+";")!=():
+                raise ValueError, "Buch bereits an anderen Schueler ausgeliehen!"
             if db.query("select * from ausleihe where pnr="+pupilnr+" and bnr="+booknr+";")!=():
-                raise ValueError,"Kombination bereits ausgeliehn!"
+                raise ValueError,"Kombination bereits ausgeliehen!"
             db.query('insert into ausleihe values((select pupil.nr from pupil where pupil.nr='+pupilnr+'),(select book.nr from book where book.nr='+booknr+'))')
             return True
         else:

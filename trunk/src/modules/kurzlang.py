@@ -6,6 +6,8 @@ def buch2lang(nr_kurz):
 def buch2kurz(nr_lang):
     if 2*10**9>int(nr_lang)>10**9:
         return str(int(nr_lang)-(10**9))
+    elif int(nr_lang)<10**9:
+        return nr_lang
     else:
         raise ValueError,"Ungueltige Nummer!"
 def sch2lang(nr_kurz):
@@ -16,5 +18,9 @@ def sch2lang(nr_kurz):
 def sch2kurz(nr_lang):
     if int(nr_lang)>2*10**9:
         return str(int(nr_lang)-(2*10**9))
+    elif int(nr_lang)<10**9:
+        return nr_lang
     else:
         raise ValueError,"Ungueltige Nummer!"
+
+print buch2kurz("1")
