@@ -3,7 +3,7 @@
 #===============================================================================
 
 def content():
-    import cgi,modules.html as html
+    import cgi,modules.html as html,modules.liste as liste
     form=cgi.FieldStorage()
     htm=""
 
@@ -25,18 +25,25 @@ def content():
             #Mode-Auswahl
             if 'lend' in form.keys():
                htm+=aus(ln,bn,"lend")
+               htm+=html.paragraph("Der Sch&uuml;ler hat noch folgende B&uuml;cher ausgeliehen:").rtn()
+               htm+=liste.zeige_buch(bn)
             elif 'save' in form.keys():
                 htm+=aus(ln,bn,"save")
+                htm+=html.paragraph("Der Sch&uuml;ler hat noch folgende B&uuml;cher ausgeliehen:").rtn()
+                htm+=liste.zeige_buch(bn)
             else:
                 htm+=aus()
         elif form['act'].value == "rueck":
             htm=htm.replace('<a href="./start.py?mn=lent&act=rueck">R&uuml;ckgabe</a>',"...")
             if 'bn' in form.keys():
                 htm+=rueck(form['bn'].value)
+                htm+=html.paragraph("Der Sch&uuml;ler hat noch folgende B&uuml;cher ausgeliehen:").rtn()
+                htm+=liste.zeige_buch(form['bn'].value)
             else:
                 htm+=rueck("")
         else:
             htm+=html.message("Ung&uuml;ltiger Modus!","Leider gab es einen Fehler beim Aufruf...",0).rtn()
+
     else:
         htm+=html.paragraph("Beginnen Sie mit einem Klick auf die jeweilige Aktion...").rtn()
 
