@@ -53,7 +53,7 @@ class Book():
             except: raise ValueError,"Error in Delete"
 
     def info(self,booknr):
-        info_dict=db.query('SELECT t.isbn, t.author, t.title t.fachbereich t.mittelstufe FROM TYPE AS t, book AS b WHERE (b.nr = "'+str(booknr)+'" AND b.type = t.nr)')
+        info_dict=db.query('SELECT t.isbn, t.author, t.title, t.fachbereich, t.mittelstufe FROM TYPE AS t, book AS b WHERE (b.nr = "'+str(booknr)+'" AND b.type = t.nr)')
         return (info_dict[0])
 
     def type_info(self,nr):
