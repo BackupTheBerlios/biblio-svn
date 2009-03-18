@@ -78,13 +78,14 @@ class Database():
 
         elif type=="nr":
             try:
-                for i in range(0, len(int(var))):
+                for i in range(0, len(var)):
                     int(var[i])
             except:
-                if var=="1":
+                if var=="1" or var=="0":
                     return True
                     pass
-                raise TypeError,"Invalid character in nr"
+                else:
+                    raise TypeError,"Invalid character in nr"
             return True
         else:
             raise TypeError,"You didn't define a valid type to check!"
@@ -132,8 +133,10 @@ class Database():
             raise
 
 if __name__=="__main__": ##Debug-Funktion
+#===============================================================================
     db=Database()
-    print db.check("nr","1")
+    print db.check("nr",1)
+#===============================================================================
 #===============================================================================
 #    print self.check("isbn","350710606X") #valid 10
 #    print self.check("isbn","9783429019976") #valid 13
@@ -157,5 +160,5 @@ if __name__=="__main__": ##Debug-Funktion
 #   print "---"
 #    print self.query("SELECT * from book")
 #   print "---"
-    print "Test erfolgreich absolviert."
+#    print "Test erfolgreich absolviert."
 #    print help(Database)
