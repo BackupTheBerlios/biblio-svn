@@ -23,4 +23,4 @@ def sch2kurz(nr_lang):
     else:
         raise ValueError,"Ungueltige Nummer!"
 
-print buch2kurz("1")
+#print buch2kurz("1")
