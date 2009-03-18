@@ -17,12 +17,14 @@ def zeige_buch(pupilnummer):
     try:
         bks=a.pupil_got(pupilnummer)
     except ValueError, e:
-        htm=html.paragraph('<div style="background-color:red">Fehler bei der Abfrage der ausgeliehenen B&uuml;cher!</div>').rtn()
+        htm+=html.paragraph('<div style="background-color:red">Fehler bei der Abfrage der ausgeliehenen B&uuml;cher!</div>').rtn()
         bks=()
-    t=html.table('Fachbereich','Titel','Buchnummer')
-    for book in bks.sort():
-        info=b.info(book)
-        t.createLine(info[1],info[2],str(book))
-    htm+=t.rtn()
+    if bks==False:
+        htm+=html.paragraph('<div style="background-color:green">Sch&uuml;ler hat kein Buch mehr ausgeliehen! :)</div>').rtn()
+    else:
+        t=html.table('Fachbereich','Titel','Buchnummer')
+        for book in bks:
+            info=b.info(book)
+            t.createLine(info[1],info[2],str(book))
+        htm+=t.rtn()
     return htm
-
