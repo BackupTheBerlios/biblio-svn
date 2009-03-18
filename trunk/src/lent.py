@@ -42,7 +42,7 @@ def content():
 
                 htm+=rueck(form['bn'].value)
                 htm+=html.paragraph("Der Sch&uuml;ler hat noch folgende B&uuml;cher ausgeliehen:").rtn()
-                htm+=liste.zeige_buch(pn)
+                htm+=liste.zeige_buch(str(pn))
             else:
                 htm+=rueck("")
         else:
