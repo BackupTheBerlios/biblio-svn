@@ -67,7 +67,7 @@ class Database():
 
             if len(var)==4 and int(var)>-3000 and int(var)<int(time.strftime("%Y")):
                 return True
-            if len(var)==8:
+            elif len(var)==8:
                 year=int(var[0:4])
                 month=int(var[4:6])
                 day=int(var[6:8])
@@ -77,11 +77,14 @@ class Database():
                 raise ValueError,"Invalid format of date"
 
         elif type=="nr":
-            for i in range(0, len(var)):
-                try:
+            try:
+                for i in range(0, len(int(var))):
                     int(var[i])
-                except:
-                    raise TypeError,"Invalid character in nr"
+            except:
+                if var=="1":
+                    return True
+                    pass
+                raise TypeError,"Invalid character in nr"
             return True
         else:
             raise TypeError,"You didn't define a valid type to check!"
@@ -130,7 +133,7 @@ class Database():
 
 if __name__=="__main__": ##Debug-Funktion
     db=Database()
-    print db.backup()
+    print db.check("nr","1")
 #===============================================================================
 #    print self.check("isbn","350710606X") #valid 10
 #    print self.check("isbn","9783429019976") #valid 13
