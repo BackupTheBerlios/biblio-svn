@@ -36,12 +36,13 @@ def content():
         elif form['act'].value == "rueck":
             htm=htm.replace('<a href="./start.py?mn=lent&act=rueck">R&uuml;ckgabe</a>',"...")
             if 'bn' in form.keys():
+                import modules.ausleihe as au
+                a=au.Ausleihe()
+                pn=a.book_loaned(form['bn'].value)
+
                 htm+=rueck(form['bn'].value)
-                import modules.ausleihe
-                a=modules.ausleihe.Ausleihe()
                 htm+=html.paragraph("Der Sch&uuml;ler hat noch folgende B&uuml;cher ausgeliehen:").rtn()
-                print a.book_loaned(form['bn'].value)
-                htm+=liste.zeige_buch(a.book_loaned(form['bn'].value))
+                htm+=liste.zeige_buch(pn)
             else:
                 htm+=rueck("")
         else:
