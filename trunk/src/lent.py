@@ -2,19 +2,19 @@
 #Aus-/R&uuml;ckgabe Frontend
 #===============================================================================
 
+def submenue():
+	sub={}
+	sub[0]={'Ausleihe':'start.py?mn=lent&act=aus'}
+	sub[1]={'R&uuml;ckgabe':'start.py?mn=lent&act=rueck'}
+	return sub
+
 def content():
     import cgi,modules.html as html,modules.liste as liste
     form=cgi.FieldStorage()
     htm=""
 
-    htm+="""<table><tr>
-    <td><a href="./start.py?mn=lent&act=aus">Ausleihe</a></td>
-    <td><a href="./start.py?mn=lent&act=rueck">R&uuml;ckgabe</a></td>
-    </tr></table>"""
-
     if 'act' in form.keys():
         if form['act'].value == "aus":
-            htm=htm.replace('<a href="./start.py?mn=lent&act=aus">Ausleihe</a>',"...")
 
             #Zuweisung der Variablen
             try: bn=form['bn'].value
@@ -42,10 +42,11 @@ def content():
             else:
                 htm+=rueck("")
         else:
-            htm+=html.message("Ung&uuml;ltiger Modus!","Leider gab es einen Fehler beim Aufruf...",0).rtn()
+            htm+=html.message(Title="Ung&uuml;ltiger Modus!",Description="Leider gab es einen Fehler beim Aufruf...",ButtonText1="Zur&uuml;ck",ButtonLink1="javascript:history.back();",MType=0).rtn()
 
     else:
-        htm+=html.paragraph("Beginnen Sie mit einem Klick auf die jeweilige Aktion...").rtn()
+        #htm+=html.paragraph("Beginnen Sie mit einem Klick auf die jeweilige Aktion...").rtn()
+		htm+=aus()
 
     return htm
 
