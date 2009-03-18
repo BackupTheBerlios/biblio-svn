@@ -25,20 +25,23 @@ def content():
             #Mode-Auswahl
             if 'lend' in form.keys():
                htm+=aus(ln,bn,"lend")
-               htm+=html.paragraph("Der Sch&uuml;ler hat noch folgende B&uuml;cher ausgeliehen:").rtn()
-               htm+=liste.zeige_buch(bn)
+               htm+=html.paragraph("Der Sch&uuml;ler hat nun folgende B&uuml;cher ausgeliehen:").rtn()
+               htm+=liste.zeige_buch(ln)
             elif 'save' in form.keys():
                 htm+=aus(ln,bn,"save")
-                htm+=html.paragraph("Der Sch&uuml;ler hat noch folgende B&uuml;cher ausgeliehen:").rtn()
-                htm+=liste.zeige_buch(bn)
+                htm+=html.paragraph("Der Sch&uuml;ler hat nun folgende B&uuml;cher ausgeliehen:").rtn()
+                htm+=liste.zeige_buch(ln)
             else:
                 htm+=aus()
         elif form['act'].value == "rueck":
             htm=htm.replace('<a href="./start.py?mn=lent&act=rueck">R&uuml;ckgabe</a>',"...")
             if 'bn' in form.keys():
                 htm+=rueck(form['bn'].value)
+                import modules.ausleihe
+                a=modules.ausleihe.Ausleihe()
                 htm+=html.paragraph("Der Sch&uuml;ler hat noch folgende B&uuml;cher ausgeliehen:").rtn()
-                htm+=liste.zeige_buch(form['bn'].value)
+                print a.book_loaned(form['bn'].value)
+                htm+=liste.zeige_buch(a.book_loaned(form['bn'].value))
             else:
                 htm+=rueck("")
         else:
@@ -122,7 +125,7 @@ def rueck(buchnummer=""):
             <p><U>Scannen oder w&auml;hlen Sie bitte die Buchnummer aus:</U></p>
             <p>
             <input type="text" name="bn" maxlength="10" tabindex="1" onkeyup="if(document.fo.bn.value.length==10){document.fo.mysubmit.focus()};" /><a href="./start.py?mn=books" target="_blank">Buch suchen...</a><br />
-            <input type="submit" name="mysubmit" value="R&uuml;ckgabe" tabindex="2" />
+            <input type="submit" name="mysubmit" value="Rueckgabe" tabindex="2" />
             </p>
             </form></fieldset>'''
     return htm
