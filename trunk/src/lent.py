@@ -36,13 +36,16 @@ def content():
         elif form['act'].value == "rueck":
             htm=htm.replace('<a href="./start.py?mn=lent&act=rueck">R&uuml;ckgabe</a>',"...")
             if 'bn' in form.keys():
-                import modules.ausleihe as au
-                a=au.Ausleihe()
-                pn=a.book_loaned(form['bn'].value)
+                try:
+                    import modules.ausleihe
+                    a=modules.ausleihe.Ausleihe()
+                    pupn=a.book_loaned(form['bn'].value)
+                except:
+                    pupn=0
 
                 htm+=rueck(form['bn'].value)
                 htm+=html.paragraph("Der Sch&uuml;ler hat noch folgende B&uuml;cher ausgeliehen:").rtn()
-                htm+=liste.zeige_buch(str(pn))
+                htm+=liste.zeige_buch(str(pupn))
             else:
                 htm+=rueck("")
         else:
@@ -72,8 +75,10 @@ def aus(lesernummer="",buchnummer="",mode=""):
                     htm+=html.paragraph('<div style="background-color:green">Buch '+buchnummer+' wurde an '+lesernummer+' erfolgreich ausgeliehen.</div>').rtn()
                 except ValueError, error:
                     htm+=html.paragraph('<div style="background-color:red">'+error.message+'</div>').rtn()
-            except ValueError:
+                    pass
+            except:
                 htm+=html.paragraph('<div style="background-color:red">Bitte geben Sie g&uuml;ltige Nummern ein!</div>').rtn()
+                pass
 
 
         else:
